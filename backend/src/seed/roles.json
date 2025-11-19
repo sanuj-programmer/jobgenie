@@ -1,0 +1,82 @@
+[
+  {
+    "title": "Frontend Developer",
+    "description": "Builds responsive user interfaces using HTML, CSS, JavaScript, and frontend frameworks like React.",
+    "keySkills": ["html", "css", "javascript", "react", "ui", "responsive design"],
+    "interests": ["design", "frontend", "ui", "usability"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Backend Developer",
+    "description": "Builds APIs, handles server logic, authentication, database operations, and backend performance.",
+    "keySkills": ["node", "express", "mongodb", "rest api", "authentication"],
+    "interests": ["backend", "databases", "servers"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Full Stack Developer",
+    "description": "Works on both frontend and backend with end-to-end application development responsibility.",
+    "keySkills": ["javascript", "node", "express", "react", "mongodb"],
+    "interests": ["fullstack", "systems", "web apps"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Data Analyst",
+    "description": "Analyzes data to extract insights using Python, SQL, Excel, and visualization tools.",
+    "keySkills": ["python", "sql", "excel", "power bi", "data analysis"],
+    "interests": ["analytics", "numbers", "insights"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Machine Learning Engineer",
+    "description": "Builds ML models, prepares datasets, deploys models using Python, TensorFlow, Scikit-Learn.",
+    "keySkills": ["python", "machine learning", "tensorflow", "scikit learn"],
+    "interests": ["ai", "ml"],
+    "minExperience": 1,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "DevOps Engineer",
+    "description": "Maintains CI/CD pipelines, cloud deployments, servers, Docker, Kubernetes.",
+    "keySkills": ["docker", "kubernetes", "linux", "jenkins", "aws"],
+    "interests": ["devops", "automation", "cloud"],
+    "minExperience": 1,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Android Developer",
+    "description": "Builds Android applications using Java, Kotlin, and Android Studio.",
+    "keySkills": ["java", "kotlin", "android"],
+    "interests": ["mobile", "apps"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "iOS Developer",
+    "description": "Develops native iOS applications using Swift and Xcode.",
+    "keySkills": ["swift", "ios", "xcode"],
+    "interests": ["mobile", "apps"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Cybersecurity Analyst",
+    "description": "Works on security testing, vulnerability scanning, firewall analysis, and network security.",
+    "keySkills": ["network security", "linux", "kali", "security analysis", "ethical hacking"],
+    "interests": ["security", "cybersecurity"],
+    "minExperience": 0,
+    "educationNeed": "b.tech"
+  },
+  {
+    "title": "Cloud Engineer",
+    "description": "Deploys and manages cloud applications, storage, compute, networking on AWS/GCP/Azure.",
+    "keySkills": ["aws", "gcp", "azure", "cloud", "docker"],
+    "interests": ["cloud", "infrastructure"],
+    "minExperience": 1,
+    "educationNeed": "b.tech"
+  }
+]

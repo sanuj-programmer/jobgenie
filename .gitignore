@@ -1,0 +1,52 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+
+# Build folders
+dist/
+build/
+.vite/
+
+# Logs
+*.log
+
+# System
+.DS_Store
+# Node modules
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Logs
+logs
+*.log
+log.txt
+
+# dotenv environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Build output
+dist/
+build/
+.cache/
+.vite/
+
+# Editor folders
+.vscode/
+.idea/
+
+# Mac files
+.DS_Store
+
+# Coverage
+coverage/
+
+# Optional
+*.swp
+
