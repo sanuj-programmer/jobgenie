@@ -111,17 +111,23 @@ export default function ChatProfileBuilder({ onComplete }) {
           <div ref={chatEndRef} />
         </div>
 
-        <div style={styles.inputBox}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            next();
+          }}
+          style={styles.inputBox}
+        >
           <input
             value={answer}
             onChange={(e) => setAnswer(e.target.value)}
             placeholder="Type your answer..."
             style={styles.input}
           />
-          <button onClick={next} style={styles.button} disabled={!answer.trim()}>
+          <button type="submit" style={styles.button} disabled={!answer.trim()}>
             Send
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
