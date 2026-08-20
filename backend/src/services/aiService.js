@@ -35,7 +35,7 @@ Return JSON in this structure:
 
   try {
     const completion = await groqClient.chat.completions.create({
-      model: "llama-3.1-8b-instant",   // ⭐ PERFECT MODEL (WORKING)
+      model: "groq/compound-mini",   // ⭐ PERFECT MODEL (WORKING)
       messages: [
         { role: "system", content: "You are JobGenie AI." },
         { role: "user", content: prompt }
