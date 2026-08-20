@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { FaSun, FaMoon, FaGithub, FaLinkedin, FaInfoCircle } from "react-icons/fa";
+import { FaSun, FaMoon, FaGithub, FaLinkedin, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 import { toast } from "./ToastContainer";
 
-export default function Navbar({ onResetHistory, historyLength }) {
+export default function Navbar({ onResetHistory, historyLength, user, onLogout }) {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "dark";
   });
@@ -71,6 +71,26 @@ export default function Navbar({ onResetHistory, historyLength }) {
           >
             {theme === "dark" ? <FaSun style={{ color: "#fbbf24" }} /> : <FaMoon style={{ color: "#3b82f6" }} />}
           </button>
+
+          {user && (
+            <>
+              <div style={styles.divider}></div>
+              <div style={styles.userInfo} title={user.email}>
+                <div style={styles.userAvatar}>
+                  {user.name.charAt(0).toUpperCase()}
+                </div>
+                <span style={styles.userName}>{user.name}</span>
+              </div>
+              <button
+                onClick={onLogout}
+                style={styles.logoutBtn}
+                title="Logout"
+                aria-label="Logout"
+              >
+                <FaSignOutAlt />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>
@@ -153,5 +173,42 @@ const styles = {
     cursor: "pointer",
     color: "var(--text-secondary)",
     transition: "transform var(--transition-speed), color var(--transition-speed)"
+  },
+  userInfo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px"
+  },
+  userAvatar: {
+    width: "28px",
+    height: "28px",
+    borderRadius: "50%",
+    background: "var(--accent-color)",
+    color: "#fff",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "12px",
+    fontWeight: "750"
+  },
+  userName: {
+    fontSize: "13px",
+    color: "var(--text-color)",
+    fontWeight: "500",
+    maxWidth: "100px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap"
+  },
+  logoutBtn: {
+    background: "none",
+    border: "none",
+    padding: 0,
+    fontSize: "18px",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    color: "var(--text-secondary)",
+    transition: "color var(--transition-speed)"
   }
 };

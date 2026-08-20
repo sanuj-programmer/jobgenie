@@ -4,6 +4,7 @@ const Role = require("../models/Role");
 const stringSimilarity = require("string-similarity");
 const { askCareerAI } = require("../services/aiService");
 const { fetchJobsForRole } = require("../services/jobSearchService");
+const auth = require("../middleware/auth");
 
 const norm = s => (s||"").toString().toLowerCase().trim();
 
@@ -36,7 +37,7 @@ function scoreEdu(userEdu = "", needEdu = "") {
   return stringSimilarity.compareTwoStrings(norm(userEdu), norm(needEdu)) * 15;
 }
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   try {
     const profile = req.body;
     // ensure arrays
