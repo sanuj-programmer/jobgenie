@@ -6,10 +6,16 @@ import LandingPage from "./components/LandingPage";
 import ChatProfileBuilder from "./components/ChatProfileBuilder";
 import AnalysisLoading from "./components/AnalysisLoading";
 import ResultsDashboard from "./components/ResultsDashboard";
+import Login from "./components/Login";
+import Register from "./components/Register";
 import ToastContainer, { toast } from "./components/ToastContainer";
-import { FaTimes, FaComments, FaArrowRight, FaSync } from "react-icons/fa";
+import { FaTimes, FaComments, FaSync, FaSpinner } from "react-icons/fa";
 
 export default function App() {
+  const [user, setUser] = useState(null);
+  const [checkingSession, setCheckingSession] = useState(true);
+  const [authScreen, setAuthScreen] = useState("login"); // 'login' | 'register'
+  
   const [screen, setScreen] = useState("landing"); // 'landing' | 'chat' | 'loading' | 'results'
   const [profile, setProfile] = useState(null);
   const [result, setResult] = useState(null);
@@ -24,9 +30,38 @@ export default function App() {
   const [conversation, setConversation] = useState([]);
   const [isConversationOpen, setIsConversationOpen] = useState(false);
 
-  // Load active profile from localStorage if any or initialize defaults
+  // Check user session on app start
   useEffect(() => {
-    // Make sure we have background glow nodes rendered
+    const checkSession = async () => {
+      try {
+        const res = await API.get("/auth/me");
+        setUser(res.data.user);
+      } catch (err) {
+        // Silent block - unauthenticated user is normal on app startup
+        setUser(null);
+      } finally {
+        setCheckingSession(false);
+      }
+    };
+    checkSession();
+  }, []);
+
+  // Listen for session expiry event from Axios interceptor
+  useEffect(() => {
+    const handleAuthExpired = () => {
+      setUser(null);
+      setProfile(null);
+      setResult(null);
+      setScreen("landing");
+      toast("Your session has expired. Please login again.", "warning");
+    };
+
+    window.addEventListener("auth-expired", handleAuthExpired);
+    return () => window.removeEventListener("auth-expired", handleAuthExpired);
+  }, []);
+
+  // Render background glow nodes on mount
+  useEffect(() => {
     const glow = document.createElement("div");
     glow.className = "bg-glow-container";
     glow.innerHTML = '<div class="bg-glow-1"></div><div class="bg-glow-2"></div>';
@@ -67,7 +102,10 @@ export default function App() {
       toast("Profile saved successfully!", "success");
     } catch (err) {
       console.error("Profile save failed:", err);
-      toast("Database registration failed. Retrying matching anyway...", "warning");
+      // Suppress showing toast if it failed due to auth expiry since interceptor handles it
+      if (err.response?.status !== 401) {
+        toast("Database registration failed. Retrying matching anyway...", "warning");
+      }
     }
 
     // Call matching API with a 10s timeout
@@ -81,6 +119,10 @@ export default function App() {
       console.error("Match API error:", err);
       setIsApiLoading(false);
       
+      if (err.response?.status === 401) {
+        return; // Handled by interceptor
+      }
+
       if (err.code === "ECONNABORTED" || err.message?.includes("timeout")) {
         setApiError("timeout");
         toast("Match calculation timed out.", "error");
@@ -97,7 +139,6 @@ export default function App() {
   };
 
   const handleChatComplete = (userProfile) => {
-    // Generate static conversation snapshot from the builder inputs
     const convSnapshot = [
       { q: "Hey! What’s your name? 😊", a: userProfile.name },
       { q: "Nice to meet you! List your skills (comma separated)", a: userProfile.skills.join(", ") },
@@ -127,7 +168,6 @@ export default function App() {
     setProfile(historyItem.profile);
     setResult(historyItem.results);
     
-    // Create conversation mock from historic values
     const convSnapshot = [
       { q: "Hey! What’s your name? 😊", a: historyItem.profile.name },
       { q: "Nice to meet you! List your skills (comma separated)", a: historyItem.profile.skills.join(", ") },
@@ -141,67 +181,122 @@ export default function App() {
     toast("Restored session matching dashboard!", "success");
   };
 
+  const handleLogout = async () => {
+    try {
+      await API.post("/auth/logout");
+      toast("Logged out successfully", "success");
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      setUser(null);
+      setProfile(null);
+      setResult(null);
+      setScreen("landing");
+    }
+  };
+
+  const handleLoginSuccess = (userData) => {
+    setUser(userData);
+    setScreen("landing");
+  };
+
+  const handleRegisterSuccess = () => {
+    setAuthScreen("login");
+  };
+
+  // Loading indicator for startup session check
+  if (checkingSession) {
+    return (
+      <div style={styles.appContainer}>
+        <Navbar user={null} onLogout={null} />
+        <main style={{ ...styles.mainContent, ...styles.centerContainer }}>
+          <FaSpinner style={styles.spinner} />
+          <p style={{ marginTop: "12px", color: "var(--text-secondary)" }}>Verifying session...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div style={styles.appContainer}>
-      <Navbar />
+      <Navbar user={user} onLogout={handleLogout} />
 
       <main style={styles.mainContent}>
-        {screen === "landing" && (
-          <LandingPage 
-            onStartAnalysis={handleStartAnalysis} 
-            onLoadHistory={handleLoadHistory} 
-          />
-        )}
+        {/* Render unauthenticated views if user is not logged in */}
+        {!user ? (
+          <>
+            {authScreen === "login" ? (
+              <Login 
+                onLoginSuccess={handleLoginSuccess}
+                onToggleRegister={() => setAuthScreen("register")}
+              />
+            ) : (
+              <Register 
+                onRegisterSuccess={handleRegisterSuccess}
+                onToggleLogin={() => setAuthScreen("login")}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {screen === "landing" && (
+              <LandingPage 
+                onStartAnalysis={handleStartAnalysis} 
+                onLoadHistory={handleLoadHistory} 
+              />
+            )}
 
-        {screen === "chat" && (
-          <ChatProfileBuilder 
-            onComplete={handleChatComplete} 
-            prefillData={prefillData}
-          />
-        )}
+            {screen === "chat" && (
+              <ChatProfileBuilder 
+                onComplete={handleChatComplete} 
+                prefillData={prefillData}
+              />
+            )}
 
-        {screen === "loading" && !apiError && (
-          <AnalysisLoading 
-            isApiLoading={isApiLoading} 
-            onFinished={() => setScreen("results")} 
-          />
-        )}
+            {screen === "loading" && !apiError && (
+              <AnalysisLoading 
+                isApiLoading={isApiLoading} 
+                onFinished={() => setScreen("results")} 
+              />
+            )}
 
-        {/* API Error / Timeout UI Panel */}
-        {screen === "loading" && apiError && (
-          <div style={styles.errorScreen}>
-            <div style={styles.errorCard}>
-              <span style={styles.errorIcon}>🚨</span>
-              <h2 style={styles.errorTitle}>
-                {apiError === "timeout" ? "Request Timeout" : "Network Connection Failed"}
-              </h2>
-              <p style={styles.errorText}>
-                {apiError === "timeout"
-                  ? "The matching service is taking longer than 10 seconds to respond. You can retry the matching algorithm or return to the landing page."
-                  : "We encountered a network error while computing your match dashboard. Please verify that your backend API server is online on port 4000."}
-              </p>
-              
-              <div style={styles.errorBtnRow}>
-                <button onClick={() => executeAnalysis(pendingProfile)} style={styles.retryBtn}>
-                  <FaSync /> Retry Calculation
-                </button>
-                <button onClick={handleRestart} style={styles.cancelBtn}>
-                  Cancel & Exit
-                </button>
+            {screen === "loading" && apiError && (
+              <div style={styles.errorScreen}>
+                <div style={styles.errorCard}>
+                  <span style={styles.errorIcon}>🚨</span>
+                  <h2 style={styles.errorTitle}>
+                    {apiError === "timeout" ? "Request Timeout" : "Network Connection Failed"}
+                  </h2>
+                  <p style={styles.errorText}>
+                    {apiError === "timeout"
+                      ? "The matching service is taking longer than 10 seconds to respond. You can retry the matching algorithm or return to the landing page."
+                      : "We encountered a network error while computing your match dashboard. Please verify that your backend API server is online on port 4000."}
+                  </p>
+                  
+                  <div style={styles.errorBtnRow}>
+                    <button onClick={() => executeAnalysis(pendingProfile)} style={styles.retryBtn}>
+                      <FaSync /> Retry Calculation
+                    </button>
+                    <button onClick={handleRestart} style={styles.cancelBtn}>
+                      Cancel & Exit
+                    </button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
+            )}
 
-        {screen === "results" && (
-          <ResultsDashboard 
-            result={result} 
-            profile={profile} 
-            onEditProfile={handleEditProfile} 
-            onRestart={handleRestart}
-            onViewConversation={() => setIsConversationOpen(true)}
-            isLoading={false}
-          />
+            {screen === "results" && (
+              <ResultsDashboard 
+                result={result} 
+                profile={profile} 
+                onEditProfile={handleEditProfile} 
+                onRestart={handleRestart}
+                onViewConversation={() => setIsConversationOpen(true)}
+                isLoading={false}
+              />
+            )}
+          </>
         )}
       </main>
 
@@ -256,6 +351,16 @@ const styles = {
     flexDirection: "column",
     position: "relative",
     zIndex: 1
+  },
+  centerContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "calc(100vh - 128px)"
+  },
+  spinner: {
+    fontSize: "36px",
+    color: "var(--accent-color)",
+    animation: "skeleton-pulse 1.2s infinite linear"
   },
   errorScreen: {
     minHeight: "calc(100vh - 128px)",
