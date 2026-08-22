@@ -9,6 +9,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
   const [messages, setMessages] = useState([]);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const chatEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   const [data, setData] = useState({
     name: "",
@@ -82,6 +83,13 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isBotTyping]);
+
+  // Refocus input whenever step changes or bot finishes typing
+  useEffect(() => {
+    if (!isBotTyping) {
+      inputRef.current?.focus();
+    }
+  }, [isBotTyping, step]);
 
   const addBotMessage = (msg) => {
     setMessages((prev) => [...prev, { sender: "bot", text: msg }]);
@@ -251,6 +259,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
               </button>
             )}
             <input
+              ref={inputRef}
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
               placeholder={`Answer: ${questions[step].key}...`}
