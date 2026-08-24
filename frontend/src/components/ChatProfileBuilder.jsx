@@ -206,7 +206,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
                       ...styles.messageBubble,
                       background: m.sender === "bot" ? "var(--card-bg)" : "var(--accent-color)",
                       border: m.sender === "bot" ? "1px solid var(--card-border)" : "none",
-                      color: "#fff",
+                      color: m.sender === "bot" ? "var(--text-color)" : "#fff",
                       borderRadius: m.sender === "bot" ? "0px 16px 16px 16px" : "16px 0px 16px 16px"
                     }}
                   >
