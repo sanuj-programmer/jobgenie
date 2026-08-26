@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaSun, FaMoon, FaGithub, FaLinkedin, FaInfoCircle, FaSignOutAlt } from "react-icons/fa";
 import { toast } from "./ToastContainer";
 
-export default function Navbar({ onResetHistory, historyLength, user, onLogout }) {
+export default function Navbar({ onResetHistory, historyLength, user, onLogout, onBrandClick }) {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "dark";
   });
@@ -21,7 +21,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout }
   return (
     <nav style={styles.nav}>
       <div style={styles.container}>
-        <div style={styles.brand}>
+        <div onClick={onBrandClick} style={styles.brand}>
           <span style={styles.magicEmoji}>🪄</span>
           <span style={styles.brandName}>JobGenie</span>
           <span style={styles.badge}>v2</span>
