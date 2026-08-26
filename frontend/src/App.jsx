@@ -60,6 +60,38 @@ export default function App() {
     return () => window.removeEventListener("auth-expired", handleAuthExpired);
   }, []);
 
+  // Handle browser back/forward buttons (HTML5 History API)
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.screen) {
+        setScreen(event.state.screen);
+      } else {
+        setScreen("landing");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    // Set initial history entry
+    const hash = window.location.hash.replace("#", "");
+    const initialScreen = ["landing", "chat", "loading", "results"].includes(hash) ? hash : "landing";
+    if (!window.history.state) {
+      window.history.replaceState({ screen: initialScreen }, "", `#${initialScreen}`);
+    }
+    setScreen(initialScreen);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  // Push new history state when screen changes
+  useEffect(() => {
+    if (window.history.state?.screen !== screen) {
+      window.history.pushState({ screen }, "", `#${screen}`);
+    }
+  }, [screen]);
+
   // Render background glow nodes on mount
   useEffect(() => {
     const glow = document.createElement("div");
@@ -220,7 +252,7 @@ export default function App() {
 
   return (
     <div style={styles.appContainer}>
-      <Navbar user={user} onLogout={handleLogout} />
+      <Navbar user={user} onLogout={handleLogout} onBrandClick={handleRestart} />
 
       <main style={styles.mainContent}>
         {/* Render unauthenticated views if user is not logged in */}
