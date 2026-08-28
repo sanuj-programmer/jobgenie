@@ -1,3 +1,78 @@
-JobGenie is a modern AI-powered job recommendation and career guidance platform designed to help job seekers understand their strengths, explore suitable job roles, and access real job listings based on their profile. The platform begins with an interactive chat interface where users input their skills, interests, education, experience, and location. This data is saved in MongoDB and processed through a rule-based matching algorithm that compares the user's profile with predefined roles using skill similarity, interests, experience matching, and education relevance. Each role is scored and displayed with a clean, responsive UI.
+# JobGenie 🪄 — AI-Powered Career Assistant & Matching Engine
 
-To enhance personalization, JobGenie integrates the Groq LLM, which generates a detailed career summary, recommended roles, reasons for compatibility, and a structured learning roadmap. Additionally, the system fetches real job listings through the RapidAPI JSearch API, providing job seekers with actionable opportunities directly within the platform. Built using Node.js, Express, MongoDB, React, and Vite—with animations powered by Framer Motion—JobGenie delivers a fast, clean, and engaging experience. It serves as a complete guidance tool combining AI intelligence, industry data, and a modern user interface to offer meaningful career insights and job discovery.
+JobGenie is a modern, single-page AI career guidance platform designed to help job seekers understand their strengths, explore suitable career paths, and access active job listings based on their professional attributes.
+
+The application guides users through an interactive, conversational chat interface, matches them with seeded career roles using a weighted algorithm, queries LLMs for personalized summaries/roadmaps, and aggregates live opportunities from across the web.
+
+## Chat conversation Flow
+🤖 What's your name?
+        ↓
+👤 Name
+
+🤖 What's your email address?
+        ↓
+👤 Email
+
+🤖 What's your phone number?
+        ↓
+👤 Phone Number
+
+🤖 List your skills (comma separated)
+        ↓
+👤 Skills
+
+🤖 How many years of experience do you have?
+        ↓
+👤 Experience
+
+🤖 What's your education?
+        ↓
+👤 Education
+
+🤖 Where are you from?
+        ↓
+👤 Location
+        ↓
+Results Dashboard (Job Matching + AI Analysis)
+
+
+
+## ⚙️ Environment Variables (.env)
+
+### Backend Configuration
+Create a `.env` file in the `/backend` folder:
+```env
+PORT=4000
+MONGO_URI=your_mongodb_atlas_connection_string
+GROQ_API_KEY=your_groq_api_credential_key
+RAPIDAPI_KEY=your_rapidapi_jsearch_key
+RAPIDAPI_HOST=jsearch.p.rapidapi.com
+JWT_SECRET=your_cryptographic_jwt_token_signature_key
+CLIENT_URL=http://localhost:5173
+NODE_ENV=development
+---
+
+```
+
+## 📂 Quick Start
+
+
+### 1. Backend Server Setup
+```bash
+cd backend
+npm install
+node src/seed/seedRoles.js   # Seed target career roles into MongoDB
+npm run dev                  # Start backend dev server on port 4000
+```
+
+### 2. Frontend Client Setup
+```bash
+cd frontend
+npm install
+npm run dev                  # Start Vite dev server on port 5173
+```
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+
+
+
