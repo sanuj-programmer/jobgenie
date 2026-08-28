@@ -50,3 +50,4 @@ coverage/
 # Optional
 *.swp
 
+.DEVELOPER_GUIDE.md

@@ -173,11 +173,12 @@ export default function App() {
   const handleChatComplete = (userProfile) => {
     const convSnapshot = [
       { q: "Hey! What’s your name? 😊", a: userProfile.name },
-      { q: "Nice to meet you! List your skills (comma separated)", a: userProfile.skills.join(", ") },
-      { q: "Great! What are your interests? (comma separated)", a: userProfile.interests.join(", ") },
+      { q: "Nice to meet you! What is your email address?", a: userProfile.email },
+      { q: "Awesome! Can you provide your phone number?", a: userProfile.phoneNumber },
+      { q: "Great! List your skills (comma separated)", a: userProfile.skills.join(", ") },
       { q: "How many years of experience do you have?", a: `${userProfile.experienceYears} Years` },
-      { q: "Where are you from?", a: userProfile.location },
-      { q: "Awesome! What is your education?", a: userProfile.education }
+      { q: "Awesome! What is your education?", a: userProfile.education },
+      { q: "Where are you from?", a: userProfile.location }
     ];
     setConversation(convSnapshot);
     setScreen("loading");
@@ -202,11 +203,12 @@ export default function App() {
     
     const convSnapshot = [
       { q: "Hey! What’s your name? 😊", a: historyItem.profile.name },
-      { q: "Nice to meet you! List your skills (comma separated)", a: historyItem.profile.skills.join(", ") },
-      { q: "Great! What are your interests? (comma separated)", a: historyItem.profile.interests.join(", ") },
+      { q: "Nice to meet you! What is your email address?", a: historyItem.profile.email },
+      { q: "Awesome! Can you provide your phone number?", a: historyItem.profile.phoneNumber },
+      { q: "Great! List your skills (comma separated)", a: historyItem.profile.skills.join(", ") },
       { q: "How many years of experience do you have?", a: `${historyItem.profile.experienceYears} Years` },
-      { q: "Where are you from?", a: historyItem.profile.location },
-      { q: "Awesome! What is your education?", a: historyItem.profile.education }
+      { q: "Awesome! What is your education?", a: historyItem.profile.education },
+      { q: "Where are you from?", a: historyItem.profile.location }
     ];
     setConversation(convSnapshot);
     setScreen("results");

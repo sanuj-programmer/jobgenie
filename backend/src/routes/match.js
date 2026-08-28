@@ -16,25 +16,15 @@ function scoreSkills(userSkills = [], roleSkills = []) {
     const best = stringSimilarity.findBestMatch(norm(rs), u);
     total += best.bestMatch.rating; // 0..1
   });
-  return (total / roleSkills.length) * 40; // weight 40
-}
-function scoreInterests(uInterests = [], rInterests = []) {
-  if (!rInterests || rInterests.length === 0) return 0;
-  const u = uInterests.map(norm);
-  let total = 0;
-  rInterests.forEach(ri => {
-    const best = stringSimilarity.findBestMatch(norm(ri), u);
-    total += best.bestMatch.rating;
-  });
-  return (total / rInterests.length) * 25;
+  return (total / roleSkills.length) * 50; // weight 50
 }
 function scoreExp(userExp = 0, minExp = 0) {
-  if (!minExp) return 20;
-  return Math.min(userExp / minExp, 1) * 20;
+  if (!minExp) return 30;
+  return Math.min(userExp / minExp, 1) * 30; // weight 30
 }
 function scoreEdu(userEdu = "", needEdu = "") {
-  if (!needEdu) return 15;
-  return stringSimilarity.compareTwoStrings(norm(userEdu), norm(needEdu)) * 15;
+  if (!needEdu) return 20;
+  return stringSimilarity.compareTwoStrings(norm(userEdu), norm(needEdu)) * 20; // weight 20
 }
 
 router.post("/", auth, async (req, res) => {
@@ -42,17 +32,15 @@ router.post("/", auth, async (req, res) => {
     const profile = req.body;
     // ensure arrays
     profile.skills = Array.isArray(profile.skills) ? profile.skills : (profile.skills ? profile.skills.split(",").map(s=>s.trim()) : []);
-    profile.interests = Array.isArray(profile.interests) ? profile.interests : (profile.interests ? profile.interests.split(",").map(s=>s.trim()) : []);
 
     const roles = await Role.find().lean();
 
     const results = await Promise.all(roles.map(async role => {
       const skillScore = scoreSkills(profile.skills, role.keySkills || []);
-      const interestScore = scoreInterests(profile.interests, role.interests || []);
       const expScore = scoreExp(Number(profile.experienceYears)||0, Number(role.minExperience)||0);
       const eduScore = scoreEdu(profile.education||"", role.educationNeed||"");
 
-      const total = Math.round(skillScore + interestScore + expScore + eduScore);
+      const total = Math.round(skillScore + expScore + eduScore);
 
       const userLow = (profile.skills||[]).map(norm);
       const gaps = (role.keySkills||[]).filter(rs => {
@@ -66,7 +54,7 @@ router.post("/", auth, async (req, res) => {
       return {
         role,
         score: total,
-        breakdown: { skillScore: Math.round(skillScore), interestScore: Math.round(interestScore), expScore: Math.round(expScore), eduScore: Math.round(eduScore) },
+        breakdown: { skillScore: Math.round(skillScore), expScore: Math.round(expScore), eduScore: Math.round(eduScore) },
         gaps,
         jobs
       };

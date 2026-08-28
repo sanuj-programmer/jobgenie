@@ -15,9 +15,9 @@ You are JobGenie AI. Analyze the user's profile and return ONLY JSON.
 User Profile:
 Name: ${profile.name}
 Skills: ${profile.skills.join(", ")}
-Interests: ${profile.interests.join(", ")}
 Education: ${profile.education}
 Experience: ${profile.experienceYears}
+Location: ${profile.location || "Not specified"}
 
 Return JSON in this structure:
 {
