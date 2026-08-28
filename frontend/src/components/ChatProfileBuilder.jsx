@@ -13,8 +13,9 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
 
   const [data, setData] = useState({
     name: "",
+    email: "",
+    phoneNumber: "",
     skills: [],
-    interests: [],
     experienceYears: 0,
     location: "",
     education: ""
@@ -22,11 +23,12 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
 
   const questions = [
     { key: "name", q: "Hey! What’s your name? 😊" },
-    { key: "skills", q: "Nice to meet you! List your skills (comma separated)" },
-    { key: "interests", q: "Great! What are your interests? (comma separated)" },
+    { key: "email", q: "Nice to meet you! What is your email address?" },
+    { key: "phoneNumber", q: "Awesome! Can you provide your phone number?" },
+    { key: "skills", q: "Great! List your skills (comma separated)" },
     { key: "experienceYears", q: "How many years of experience do you have?" },
-    { key: "location", q: "Where are you from?" },
-    { key: "education", q: "Awesome! What is your education?" }
+    { key: "education", q: "Awesome! What is your education?" },
+    { key: "location", q: "Where are you from?" }
   ];
 
   // Load prefilled data if editing profile
@@ -34,8 +36,9 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
     if (prefillData) {
       setData({
         name: prefillData.name || "",
+        email: prefillData.email || "",
+        phoneNumber: prefillData.phoneNumber || "",
         skills: prefillData.skills || [],
-        interests: prefillData.interests || [],
         experienceYears: prefillData.experienceYears || 0,
         location: prefillData.location || "",
         education: prefillData.education || ""
@@ -105,10 +108,27 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
     const key = questions[step].key;
     let value = answer.trim();
 
+    // Field-level validations
+    if (key === "email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        toast("Please enter a valid email address", "warning");
+        return;
+      }
+    }
+
+    if (key === "phoneNumber") {
+      const phoneRegex = /^[0-9+\-\s()]{7,15}$/;
+      if (!phoneRegex.test(value)) {
+        toast("Please enter a valid phone number (7-15 characters)", "warning");
+        return;
+      }
+    }
+
     addUserMessage(value);
     setAnswer("");
 
-    if (key === "skills" || key === "interests") {
+    if (key === "skills") {
       value = value.split(",").map((s) => s.trim()).filter(Boolean);
     }
     if (key === "experienceYears") {
@@ -311,13 +331,18 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
             </div>
             
             <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>💻 Skills</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("skills", data.skills)}</div>
+              <span style={styles.itemLabel}>📧 Email</span>
+              <div style={styles.itemValue}>{getProfileFieldDisplay("email", data.email)}</div>
             </div>
 
             <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>❤️ Interests</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("interests", data.interests)}</div>
+              <span style={styles.itemLabel}>📞 Phone</span>
+              <div style={styles.itemValue}>{getProfileFieldDisplay("phoneNumber", data.phoneNumber)}</div>
+            </div>
+
+            <div style={styles.profileItem}>
+              <span style={styles.itemLabel}>💻 Skills</span>
+              <div style={styles.itemValue}>{getProfileFieldDisplay("skills", data.skills)}</div>
             </div>
 
             <div style={styles.profileItem}>
