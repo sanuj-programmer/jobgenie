@@ -5,6 +5,7 @@ const stringSimilarity = require("string-similarity");
 const { askCareerAI } = require("../services/aiService");
 const { fetchJobsForRole } = require("../services/jobSearchService");
 const auth = require("../middleware/auth");
+const { validateProfile } = require("../utils/validateProfile");
 
 const norm = s => (s||"").toString().toLowerCase().trim();
 
@@ -29,9 +30,11 @@ function scoreEdu(userEdu = "", needEdu = "") {
 
 router.post("/", auth, async (req, res) => {
   try {
-    const profile = req.body;
-    // ensure arrays
-    profile.skills = Array.isArray(profile.skills) ? profile.skills : (profile.skills ? profile.skills.split(",").map(s=>s.trim()) : []);
+    const validation = validateProfile(req.body);
+    if (!validation.isValid) {
+      return res.status(400).json({ error: validation.errors[0], errors: validation.errors });
+    }
+    const profile = validation.sanitized;
 
     const roles = await Role.find().lean();
 
