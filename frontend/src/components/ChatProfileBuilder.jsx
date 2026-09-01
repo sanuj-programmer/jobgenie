@@ -16,19 +16,54 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
     email: "",
     phoneNumber: "",
     skills: [],
-    experienceYears: 0,
+    experienceYears: null,
     location: "",
     education: ""
   });
 
   const questions = [
-    { key: "name", q: "Hey! What’s your name? 😊" },
-    { key: "email", q: "Nice to meet you! What is your email address?" },
-    { key: "phoneNumber", q: "Awesome! Can you provide your phone number?" },
-    { key: "skills", q: "Great! List your skills (comma separated)" },
-    { key: "experienceYears", q: "How many years of experience do you have?" },
-    { key: "education", q: "Awesome! What is your education?" },
-    { key: "location", q: "Where are you from?" }
+    {
+      key: "name",
+      q: "Hey! What’s your name? 😊",
+      placeholder: "Enter your full name (max 100 chars)...",
+      maxLength: 100
+    },
+    {
+      key: "email",
+      q: "Nice to meet you! What is your email address?",
+      placeholder: "e.g. alex@example.com (max 254 chars)...",
+      maxLength: 254
+    },
+    {
+      key: "phoneNumber",
+      q: "Awesome! Can you provide your phone number?",
+      placeholder: "e.g. +1 (555) 123-4567 (max 20 chars)...",
+      maxLength: 20
+    },
+    {
+      key: "skills",
+      q: "Great! List your skills (comma separated)",
+      placeholder: "e.g. React, Node.js, Python, SQL (max 500 chars)...",
+      maxLength: 500
+    },
+    {
+      key: "experienceYears",
+      q: "How many years of experience do you have?",
+      placeholder: "e.g. 0, 2, or 3.5 (0 to 50 years)...",
+      maxLength: 4
+    },
+    {
+      key: "education",
+      q: "Awesome! What is your education?",
+      placeholder: "e.g. Bachelor of Science in CS (max 200 chars)...",
+      maxLength: 200
+    },
+    {
+      key: "location",
+      q: "Where are you from?",
+      placeholder: "e.g. New York, NY / Remote (max 100 chars)...",
+      maxLength: 100
+    }
   ];
 
   // Load prefilled data if editing profile
@@ -103,37 +138,93 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
   };
 
   const next = async () => {
-    if (!answer.trim()) return;
+    if (!answer.trim()) {
+      toast("Please provide an answer to continue.", "warning");
+      return;
+    }
 
-    const key = questions[step].key;
+    const currentQ = questions[step];
+    const key = currentQ.key;
     let value = answer.trim();
 
-    // Field-level validations
+    // 1. Name: Max 100 characters
+    if (key === "name") {
+      if (value.length > 100) {
+        toast("Name cannot exceed 100 characters.", "warning");
+        return;
+      }
+    }
+
+    // 2. Email: Max 254 chars, valid email format
     if (key === "email") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (value.length > 254) {
+        toast("Email cannot exceed 254 characters.", "warning");
+        return;
+      }
       if (!emailRegex.test(value)) {
-        toast("Please enter a valid email address", "warning");
+        toast("Please enter a valid email address.", "warning");
         return;
       }
     }
 
+    // 3. Phone Number: Max 20 chars, allowed chars, min 7 digits
     if (key === "phoneNumber") {
-      const phoneRegex = /^[0-9+\-\s()]{7,15}$/;
-      if (!phoneRegex.test(value)) {
-        toast("Please enter a valid phone number (7-15 characters)", "warning");
+      if (value.length > 20) {
+        toast("Phone number cannot exceed 20 characters.", "warning");
+        return;
+      }
+      const phoneRegex = /^[0-9+\-\s()]{7,20}$/;
+      const digitCount = value.replace(/\D/g, "").length;
+      if (!phoneRegex.test(value) || digitCount < 7) {
+        toast("Please enter a valid phone number (digits, +, -, spaces, () allowed, min 7 digits).", "warning");
         return;
       }
     }
 
-    addUserMessage(value);
-    setAnswer("");
-
+    // 4. Skills: Max 500 chars, comma-separated array
     if (key === "skills") {
-      value = value.split(",").map((s) => s.trim()).filter(Boolean);
+      if (value.length > 500) {
+        toast("Skills text cannot exceed 500 characters.", "warning");
+        return;
+      }
+      const parsedSkills = value.split(",").map((s) => s.trim()).filter(Boolean);
+      if (parsedSkills.length === 0) {
+        toast("Please enter at least one valid skill.", "warning");
+        return;
+      }
+      value = parsedSkills;
     }
+
+    // 5. Experience: Min 0, Max 50, integer or at most 1 decimal place
     if (key === "experienceYears") {
-      value = Number(value) || 0;
+      const expFormatRegex = /^\d+(\.\d)?$/;
+      const num = Number(value);
+      if (!expFormatRegex.test(value) || isNaN(num) || num < 0 || num > 50) {
+        toast("Experience must be a number between 0 and 50 years with at most 1 decimal place (e.g. 0, 2, or 3.5).", "warning");
+        return;
+      }
+      value = num;
     }
+
+    // 6. Education: Max 200 chars
+    if (key === "education") {
+      if (value.length > 200) {
+        toast("Education cannot exceed 200 characters.", "warning");
+        return;
+      }
+    }
+
+    // 7. Location: Max 100 chars
+    if (key === "location") {
+      if (value.length > 100) {
+        toast("Location cannot exceed 100 characters.", "warning");
+        return;
+      }
+    }
+
+    addUserMessage(Array.isArray(value) ? value.join(", ") : String(value));
+    setAnswer("");
 
     const newData = { ...data, [key]: value };
     setData(newData);
@@ -181,7 +272,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
   const progressPercentage = Math.round(((step + 1) / questions.length) * 100);
 
   const getProfileFieldDisplay = (key, val) => {
-    if (Array.isArray(val) ? val.length === 0 : !val) {
+    if (val === null || val === undefined || (Array.isArray(val) ? val.length === 0 : val === "")) {
       return <span style={styles.waitingText}>Waiting...</span>;
     }
     return <span style={styles.filledText}>{Array.isArray(val) ? val.join(", ") : String(val)}</span>;
@@ -278,15 +369,21 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
                 <FaArrowLeft />
               </button>
             )}
-            <input
-              ref={inputRef}
-              value={answer}
-              onChange={(e) => setAnswer(e.target.value)}
-              placeholder={`Answer: ${questions[step].key}...`}
-              style={styles.input}
-              disabled={isBotTyping}
-              autoFocus
-            />
+            <div style={styles.inputWrapper}>
+              <input
+                ref={inputRef}
+                value={answer}
+                maxLength={questions[step].maxLength}
+                onChange={(e) => setAnswer(e.target.value)}
+                placeholder={questions[step].placeholder || `Answer: ${questions[step].key}...`}
+                style={styles.input}
+                disabled={isBotTyping}
+                autoFocus
+              />
+              <span style={styles.charCount}>
+                {answer.length}/{questions[step].maxLength}
+              </span>
+            </div>
             <button
               type="submit"
               style={{
@@ -358,8 +455,8 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
             <div style={styles.profileItem}>
               <span style={styles.itemLabel}>🧑‍💼 Experience</span>
               <div style={styles.itemValue}>
-                {data.experienceYears > 0 ? (
-                  <span style={styles.filledText}>{data.experienceYears} Years</span>
+                {data.experienceYears !== null && data.experienceYears !== undefined && data.experienceYears !== "" ? (
+                  <span style={styles.filledText}>{data.experienceYears} Year{Number(data.experienceYears) === 1 ? "" : "s"}</span>
                 ) : (
                   <span style={styles.waitingText}>Waiting...</span>
                 )}
@@ -525,16 +622,30 @@ const styles = {
     fontSize: "16px",
     transition: "background var(--transition-speed)"
   },
-  input: {
+  inputWrapper: {
     flex: 1,
+    position: "relative",
+    display: "flex",
+    alignItems: "center"
+  },
+  input: {
+    width: "100%",
     borderRadius: "12px",
     border: "1px solid var(--card-border)",
     background: "rgba(15, 23, 42, 0.3)",
     color: "var(--text-color)",
-    padding: "0 16px",
+    padding: "0 68px 0 16px",
     fontSize: "14px",
     height: "46px",
     outline: "none"
+  },
+  charCount: {
+    position: "absolute",
+    right: "12px",
+    fontSize: "11px",
+    color: "var(--text-secondary)",
+    pointerEvents: "none",
+    userSelect: "none"
   },
   sendBtn: {
     width: "46px",
@@ -620,7 +731,9 @@ const styles = {
   itemValue: {
     fontSize: "14px",
     fontWeight: "500",
-    lineHeight: "1.4"
+    lineHeight: "1.4",
+    wordBreak: "break-word",
+    overflowWrap: "anywhere"
   },
   waitingText: {
     color: "var(--text-secondary)",
