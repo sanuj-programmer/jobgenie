@@ -761,7 +761,7 @@ const styles = {
   },
   searchInput: {
     width: "100%",
-    background: "rgba(15, 23, 42, 0.3)",
+    background: "var(--bg-color)",
     border: "1px solid var(--card-border)",
     borderRadius: "10px",
     padding: "0 12px 0 36px",
@@ -778,7 +778,7 @@ const styles = {
   filterWrapper: {
     display: "flex",
     alignItems: "center",
-    background: "rgba(15, 23, 42, 0.3)",
+    background: "var(--bg-color)",
     border: "1px solid var(--card-border)",
     borderRadius: "10px",
     padding: "0 10px",

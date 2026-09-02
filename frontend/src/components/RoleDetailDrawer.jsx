@@ -265,7 +265,7 @@ const styles = {
     height: "100%",
     width: "100%",
     maxWidth: "500px",
-    background: "#111827", // Slightly darker than dashboard card for overlap distinction
+    background: "var(--bg-color)",
     borderLeft: "1px solid var(--card-border)",
     boxShadow: "-10px 0 30px rgba(0,0,0,0.5)",
     zIndex: 2001,
@@ -296,7 +296,7 @@ const styles = {
     gap: "8px"
   },
   scoreBadge: {
-    background: "rgba(59, 130, 246, 0.15)",
+    background: "var(--accent-glow)",
     color: "var(--accent-color)",
     border: "1px solid rgba(59, 130, 246, 0.3)",
     borderRadius: "6px",
@@ -368,7 +368,7 @@ const styles = {
     gap: "12px"
   },
   statCard: {
-    background: "rgba(255,255,255,0.02)",
+    background: "var(--card-bg)",
     border: "1px solid var(--card-border)",
     borderRadius: "12px",
     padding: "16px",
@@ -429,7 +429,7 @@ const styles = {
     gap: "10px"
   },
   jobMiniCard: {
-    background: "rgba(255,255,255,0.02)",
+    background: "var(--card-bg)",
     border: "1px solid var(--card-border)",
     padding: "12px 16px",
     borderRadius: "10px",

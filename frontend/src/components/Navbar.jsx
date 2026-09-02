@@ -103,7 +103,7 @@ const styles = {
     top: 0,
     zIndex: 1000,
     width: "100%",
-    background: "rgba(15, 23, 42, 0.4)",
+    background: "var(--card-bg)",
     backdropFilter: "blur(12px)",
     borderBottom: "1px solid var(--card-border)",
     transition: "background var(--transition-speed), border var(--transition-speed)"
