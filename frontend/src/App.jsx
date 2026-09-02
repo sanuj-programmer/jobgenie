@@ -383,8 +383,7 @@ const styles = {
     flex: 1,
     display: "flex",
     flexDirection: "column",
-    position: "relative",
-    zIndex: 1
+    position: "relative"
   },
   centerContainer: {
     alignItems: "center",
@@ -479,7 +478,7 @@ const styles = {
     padding: "24px"
   },
   modalContent: {
-    background: "#1e293b",
+    background: "var(--card-bg)",
     border: "1px solid var(--card-border)",
     boxShadow: "var(--card-shadow)",
     borderRadius: "var(--border-radius)",
@@ -526,7 +525,7 @@ const styles = {
     gap: "12px"
   },
   modalBotBubble: {
-    background: "rgba(15, 23, 42, 0.3)",
+    background: "var(--bg-color)",
     border: "1px solid var(--card-border)",
     padding: "12px 16px",
     borderRadius: "0px 14px 14px 14px",
@@ -537,7 +536,7 @@ const styles = {
     gap: "4px"
   },
   modalUserBubble: {
-    background: "rgba(59, 130, 246, 0.15)",
+    background: "var(--accent-glow)",
     border: "1px solid rgba(59, 130, 246, 0.2)",
     padding: "12px 16px",
     borderRadius: "14px 0px 14px 14px",
