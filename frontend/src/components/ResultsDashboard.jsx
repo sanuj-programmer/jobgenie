@@ -123,7 +123,7 @@ export default function ResultsDashboard({
           ))}
         </div>
         <div style={styles.skeletonSummary} className="skeleton" />
-        <div style={{ ...styles.twoColumnGrid, marginTop: "24px" }}>
+        <div className="two-column-grid" style={{ marginTop: "24px" }}>
           <div style={styles.skeletonRoadmap} className="skeleton" />
           <div style={styles.skeletonCardsGrid}>
             {[1, 2, 3].map(i => (
@@ -150,11 +150,11 @@ export default function ResultsDashboard({
       <div style={styles.header}>
         <div>
           <span style={styles.dateLabel}>{dateString}</span>
-          <h1 style={styles.greetingTitle}>Hello, {profile?.name || "User"} 👋</h1>
+          <h1 style={styles.greetingTitle} className="word-break-all">Hello, {profile?.name || "User"} 👋</h1>
           <p style={styles.greetingSubtitle}>Here's your personalized career analysis.</p>
         </div>
         
-        <div style={styles.headerActions}>
+        <div style={styles.headerActions} className="header-actions">
           <button onClick={onViewConversation} style={styles.actionBtn} title="View Conversation Log">
             <FaComments /> View Conversation
           </button>
@@ -211,7 +211,7 @@ export default function ResultsDashboard({
             {aiInsights.map((insight, idx) => (
               <li key={idx} style={styles.insightItem}>
                 <div style={styles.bulletPoint} />
-                <span>{insight}</span>
+                <span className="word-break-all">{insight}</span>
               </li>
             ))}
           </ul>
@@ -219,7 +219,7 @@ export default function ResultsDashboard({
       </div>
 
       {/* Center Grid: Left (Roadmaps) - Right (Matches) */}
-      <div style={styles.twoColumnGrid}>
+      <div className="two-column-grid">
         
         {/* Suggested Timeline Roadmap */}
         <div style={styles.roadmapPanel}>
@@ -531,7 +531,7 @@ const styles = {
   },
   statsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
     gap: "20px"
   },
   statCard: {
@@ -649,12 +649,7 @@ const styles = {
     flexShrink: 0
   },
   twoColumnGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gap: "24px",
-    "@media (min-width: 992px)": {
-      gridTemplateColumns: "1fr 1.6fr"
-    }
+    // Replaced by .two-column-grid class in index.css
   },
   roadmapPanel: {
     background: "var(--card-bg)",
@@ -938,7 +933,7 @@ const styles = {
   },
   jobsGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
     gap: "20px"
   },
   jobCard: {

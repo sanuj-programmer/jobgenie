@@ -280,7 +280,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
 
   return (
     <div style={styles.container}>
-      <div style={styles.twoColumnGrid}>
+      <div className="chat-two-column-grid" style={{ marginTop: "24px" }}>
         
         {/* Left Column: Conversational Chat */}
         <div style={styles.chatPanel}>
@@ -482,14 +482,7 @@ const styles = {
     justifyContent: "center"
   },
   twoColumnGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gap: "24px",
-    width: "100%",
-    // Responsive layout handled by JS/CSS breakpoints (min-width logic)
-    "@media (min-width: 992px)": {
-      gridTemplateColumns: "1.4fr 1fr"
-    }
+    // Replaced by .chat-two-column-grid in index.css
   },
   chatPanel: {
     background: "var(--card-bg)",
@@ -497,7 +490,7 @@ const styles = {
     border: "1px solid var(--card-border)",
     borderRadius: "var(--border-radius)",
     boxShadow: "var(--card-shadow)",
-    height: "65vh",
+    height: "100%",
     minHeight: "500px",
     display: "flex",
     flexDirection: "column",
@@ -665,6 +658,7 @@ const styles = {
     borderRadius: "var(--border-radius)",
     boxShadow: "var(--card-shadow)",
     padding: "24px",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     gap: "20px"

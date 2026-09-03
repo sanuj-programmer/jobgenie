@@ -77,7 +77,7 @@ export default function LandingPage({ onStartAnalysis, onLoadHistory }) {
           <span style={styles.heroBadge}>✨ AI-Powered Guidance</span>
         </motion.div>
         
-        <motion.h1 variants={itemVariants} style={styles.heroTitle}>
+        <motion.h1 variants={itemVariants} style={styles.heroTitle} className="word-break-all">
           AI Career Guidance for <br />
           <span style={styles.gradientText}>Students & Professionals</span>
         </motion.h1>
@@ -125,7 +125,7 @@ export default function LandingPage({ onStartAnalysis, onLoadHistory }) {
                 <div key={idx} style={styles.historyCard} className="hover-lift">
                   <div style={styles.historyInfo}>
                     <span style={styles.historyDate}>{item.date}</span>
-                    <h3 style={styles.historyName}>{item.profile?.name}'s Profile</h3>
+                    <h3 style={styles.historyName} className="word-break-all">{item.profile?.name}'s Profile</h3>
                     <div style={styles.historyMatchRow}>
                       <span style={styles.historyRole}>{bestRoleName}</span>
                       <span style={styles.historyScoreBadge}>{bestScore} Match</span>
@@ -290,7 +290,7 @@ const styles = {
   },
   historyGrid: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
     gap: "16px"
   },
   historyCard: {
