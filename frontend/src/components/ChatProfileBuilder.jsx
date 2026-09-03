@@ -231,6 +231,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
 
     // Last question → submit
     if (step === questions.length - 1) {
+      setStep(questions.length); // Increment step to trigger 100% complete
       setIsBotTyping(true);
       setTimeout(() => {
         setIsBotTyping(false);
@@ -269,7 +270,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
     toast(`Returned to step: ${questions[prevStep].key}`, "info");
   };
 
-  const progressPercentage = Math.round(((step + 1) / questions.length) * 100);
+  const progressPercentage = Math.round((step / questions.length) * 100);
 
   const getProfileFieldDisplay = (key, val) => {
     if (val === null || val === undefined || (Array.isArray(val) ? val.length === 0 : val === "")) {
@@ -373,15 +374,15 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
               <input
                 ref={inputRef}
                 value={answer}
-                maxLength={questions[step].maxLength}
+                maxLength={questions[Math.min(step, questions.length - 1)].maxLength}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder={questions[step].placeholder || `Answer: ${questions[step].key}...`}
+                placeholder={questions[Math.min(step, questions.length - 1)].placeholder || `Answer: ${questions[Math.min(step, questions.length - 1)].key}...`}
                 style={styles.input}
                 disabled={isBotTyping}
                 autoFocus
               />
               <span style={styles.charCount}>
-                {answer.length}/{questions[step].maxLength}
+                {answer.length}/{questions[Math.min(step, questions.length - 1)].maxLength}
               </span>
             </div>
             <button
@@ -404,7 +405,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
           <div style={styles.panelHeader}>
             <h3 style={styles.panelTitle}>Live Profile Card</h3>
             <span style={styles.stepIndicator}>
-              Step {step + 1} of {questions.length}
+              Step {Math.min(step + 1, questions.length)} of {questions.length}
             </span>
           </div>
 
@@ -490,7 +491,7 @@ const styles = {
     border: "1px solid var(--card-border)",
     borderRadius: "var(--border-radius)",
     boxShadow: "var(--card-shadow)",
-    height: "100%",
+    height: "65vh",
     minHeight: "500px",
     display: "flex",
     flexDirection: "column",
@@ -658,10 +659,12 @@ const styles = {
     borderRadius: "var(--border-radius)",
     boxShadow: "var(--card-shadow)",
     padding: "24px",
-    height: "100%",
+    height: "65vh",
+    minHeight: "500px",
     display: "flex",
     flexDirection: "column",
-    gap: "20px"
+    gap: "20px",
+    overflowY: "auto"
   },
   panelHeader: {
     display: "flex",
