@@ -20,14 +20,14 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
 
   return (
     <nav style={styles.nav}>
-      <div style={styles.container}>
+      <div style={styles.container} className="nav-container">
         <div onClick={onBrandClick} style={styles.brand}>
           <span style={styles.magicEmoji}>🪄</span>
           <span style={styles.brandName}>JobGenie</span>
           <span style={styles.badge}>v2</span>
         </div>
 
-        <div style={styles.navLinks}>
+        <div style={styles.navLinks} className="nav-links">
           <a
             href="https://github.com"
             target="_blank"
@@ -35,6 +35,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
             style={styles.iconLink}
             aria-label="GitHub Repository"
             title="GitHub"
+            className="hide-on-mobile"
           >
             <FaGithub />
           </a>
@@ -45,6 +46,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
             style={styles.iconLink}
             aria-label="LinkedIn Profile"
             title="LinkedIn"
+            className="hide-on-mobile"
           >
             <FaLinkedin />
           </a>
@@ -53,6 +55,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
             style={styles.iconLink}
             aria-label="About JobGenie"
             title="About Info"
+            className="hide-on-mobile"
             onClick={(e) => {
               e.preventDefault();
               toast("JobGenie v2: AI Career Path Matching & Guidance", "info");
@@ -79,7 +82,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
                 <div style={styles.userAvatar}>
                   {user.name.charAt(0).toUpperCase()}
                 </div>
-                <span style={styles.userName}>{user.name}</span>
+                <span style={styles.userName} className="hide-on-mobile">{user.name}</span>
               </div>
               <button
                 onClick={onLogout}

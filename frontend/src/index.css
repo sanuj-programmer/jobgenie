@@ -146,3 +146,53 @@ textarea:focus-visible {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
 }
+
+/* Utility classes for responsive UI */
+.word-break-all {
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  hyphens: auto;
+}
+
+@media (max-width: 640px) {
+  .hide-on-mobile {
+    display: none !important;
+  }
+  .nav-container {
+    padding: 0 12px !important;
+  }
+  .nav-links {
+    gap: 10px !important;
+  }
+  .header-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  .header-actions button {
+    flex: 1;
+    justify-content: center;
+    padding: 10px 8px !important;
+    font-size: 12px !important;
+  }
+}
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+}
+
+.chat-two-column-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  width: 100%;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .chat-two-column-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+}
