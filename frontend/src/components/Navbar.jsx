@@ -28,7 +28,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
 
         <div style={styles.navLinks} className="nav-links">
           <a
-            href="https://github.com"
+            href="https://github.com/sanuj-programmer"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.iconLink}
@@ -39,7 +39,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
             <FaGithub />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/sanuj-kumar-singh/"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.iconLink}

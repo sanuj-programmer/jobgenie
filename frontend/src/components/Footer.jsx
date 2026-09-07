@@ -13,7 +13,7 @@ export default function Footer() {
 
         <div style={styles.links}>
           <a
-            href="https://github.com"
+            href="https://github.com/sanuj-programmer"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.link}
@@ -22,7 +22,7 @@ export default function Footer() {
             <FaGithub /> GitHub
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/sanuj-kumar-singh/"
             target="_blank"
             rel="noopener noreferrer"
             style={styles.link}
