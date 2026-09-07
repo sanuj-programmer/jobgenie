@@ -4,12 +4,11 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 export default function Footer() {
   return (
     <footer style={styles.footer}>
-      <div style={styles.container}>
-        <div style={styles.info}>
+      <div style={styles.container} className="footer-container">
+        <div style={styles.info} className="footer-info">
           <span style={styles.credits}>
             Built with ❤️ by <span style={styles.author}>Sanuj Kumar Singh</span>
           </span>
-          <span style={styles.version}>v2.0.0 (Hackathon Edition)</span>
         </div>
 
         <div style={styles.links}>
@@ -69,11 +68,6 @@ const styles = {
   author: {
     color: "var(--text-color)",
     fontWeight: "600"
-  },
-  version: {
-    fontSize: "11px",
-    color: "var(--text-secondary)",
-    opacity: 0.7
   },
   links: {
     display: "flex",
