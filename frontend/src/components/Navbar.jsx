@@ -24,7 +24,6 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
         <div onClick={onBrandClick} style={styles.brand}>
           <span style={styles.magicEmoji}>🪄</span>
           <span style={styles.brandName}>JobGenie</span>
-          <span style={styles.badge}>v2</span>
         </div>
 
         <div style={styles.navLinks} className="nav-links">
@@ -58,7 +57,7 @@ export default function Navbar({ onResetHistory, historyLength, user, onLogout, 
             className="hide-on-mobile"
             onClick={(e) => {
               e.preventDefault();
-              toast("JobGenie v2: AI Career Path Matching & Guidance", "info");
+              toast("JobGenie: AI Career Path Matching & Guidance", "info");
             }}
           >
             <FaInfoCircle />
