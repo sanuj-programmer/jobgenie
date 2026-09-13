@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaBriefcase, FaGraduationCap, FaChartLine, FaMoneyBillWave, FaExternalLinkAlt } from "react-icons/fa";
 
+import styles from '../styles/components/RoleDetailDrawer.module.css';
+
 export default function RoleDetailDrawer({ isOpen, onClose, match }) {
   // Listen for Escape key to close
   useEffect(() => {
@@ -102,7 +104,7 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            style={styles.backdrop}
+            className={styles.backdrop}
           />
 
           {/* Drawer Panel */}
@@ -111,87 +113,87 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            style={styles.drawer}
+            className={styles.drawer}
             aria-modal="true"
             role="dialog"
           >
             {/* Header */}
-            <div style={styles.header}>
-              <div style={styles.headerTitleArea}>
-                <h2 style={styles.title}>{role.title}</h2>
-                <div style={styles.scoreRow}>
-                  <div style={styles.scoreBadge}>{score}% Match</div>
+            <div className={styles.header}>
+              <div className={styles.headerTitleArea}>
+                <h2 className={styles.title}>{role.title}</h2>
+                <div className={styles.scoreRow}>
+                  <div className={styles.scoreBadge}>{score}% Match</div>
                 </div>
               </div>
-              <button onClick={onClose} style={styles.closeBtn} aria-label="Close details">
+              <button onClick={onClose} className={styles.closeBtn} aria-label="Close details">
                 <FaTimes />
               </button>
             </div>
 
             {/* Scrollable Content */}
-            <div style={styles.content} className="chat-scrollbar">
+            <div className={`${styles.content} chat-scrollbar`}>
               
               {/* Description */}
-              <div style={styles.section}>
-                <h3 style={styles.sectionTitle}>
-                  <FaBriefcase style={styles.sectionIcon} /> Role Description
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
+                  <FaBriefcase className={styles.sectionIcon} /> Role Description
                 </h3>
-                <p style={styles.descText}>{role.description}</p>
+                <p className={styles.descText}>{role.description}</p>
               </div>
 
               {/* Responsibilities */}
-              <div style={styles.section}>
-                <h3 style={styles.sectionTitle}>
-                  <FaGraduationCap style={styles.sectionIcon} /> Daily Responsibilities
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
+                  <FaGraduationCap className={styles.sectionIcon} /> Daily Responsibilities
                 </h3>
-                <ul style={styles.bulletList}>
+                <ul className={styles.bulletList}>
                   {currentResponsibilities.map((resp, i) => (
-                    <li key={i} style={styles.bulletItem}>{resp}</li>
+                    <li key={i} className={styles.bulletItem}>{resp}</li>
                   ))}
                 </ul>
               </div>
 
               {/* Salary & Growth */}
-              <div style={styles.section}>
-                <h3 style={styles.sectionTitle}>
-                  <FaMoneyBillWave style={styles.sectionIcon} /> Salary & Career Growth
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
+                  <FaMoneyBillWave className={styles.sectionIcon} /> Salary & Career Growth
                 </h3>
-                <div style={styles.statsCardGrid}>
-                  <div style={styles.statCard}>
-                    <span style={styles.statLabel}>Average Salary</span>
-                    <span style={styles.statValue}>
+                <div className={styles.statsCardGrid}>
+                  <div className={styles.statCard}>
+                    <span className={styles.statLabel}>Average Salary</span>
+                    <span className={styles.statValue}>
                       {role.title === "Frontend Developer" ? "₹6 - 15 LPA" : 
                        role.title === "Backend Developer" ? "₹7 - 18 LPA" : 
                        role.title === "Full Stack Developer" ? "₹8 - 20 LPA" : 
                        role.title === "DevOps Engineer" ? "₹8 - 18 LPA" : 
                        "Salary Not Available"}
                     </span>
-                    <span style={styles.statNote}>Based on experience</span>
+                    <span className={styles.statNote}>Based on experience</span>
                   </div>
-                  <div style={styles.statCard}>
-                    <span style={styles.statLabel}>Career Growth</span>
-                    <span style={{ ...styles.statValue, color: "var(--success-color)" }}>High</span>
-                    <span style={styles.statNote}>15%+ YoY Demand Increase</span>
+                  <div className={styles.statCard}>
+                    <span className={styles.statLabel}>Career Growth</span>
+                    <span className={styles.statValue}
+style={{color: "var(--success-color)" }}>High</span>
+                    <span className={styles.statNote}>15%+ YoY Demand Increase</span>
                   </div>
                 </div>
               </div>
 
               {/* Required Skills & Gaps */}
-              <div style={styles.section}>
-                <h3 style={styles.sectionTitle}>
-                  <FaChartLine style={styles.sectionIcon} /> Skills Analysis
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
+                  <FaChartLine className={styles.sectionIcon} /> Skills Analysis
                 </h3>
-                <div style={styles.skillsContainer}>
-                  <span style={styles.subLabel}>Core Required Skills:</span>
-                  <div style={styles.skillsGrid}>
+                <div className={styles.skillsContainer}>
+                  <span className={styles.subLabel}>Core Required Skills:</span>
+                  <div className={styles.skillsGrid}>
                     {(role.keySkills || role.requiredSkills || []).map((skill, idx) => {
                       const isMissing = gaps.some(g => g.toLowerCase() === skill.toLowerCase());
                       return (
                         <span 
                           key={idx} 
-                          style={{
-                            ...styles.skillChip,
-                            background: isMissing ? "rgba(239, 68, 68, 0.12)" : "rgba(16, 185, 129, 0.12)",
+                          className={styles.skillChip}
+style={{background: isMissing ? "rgba(239, 68, 68, 0.12)" : "rgba(16, 185, 129, 0.12)",
                             borderColor: isMissing ? "var(--danger-color)" : "var(--success-color)",
                             color: isMissing ? "var(--danger-color)" : "var(--success-color)"
                           }}
@@ -204,7 +206,7 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
                   </div>
 
                   {gaps.length > 0 && (
-                    <div style={styles.gapsNotice}>
+                    <div className={styles.gapsNotice}>
                       <span style={{ fontWeight: "700", color: "var(--danger-color)" }}>Focus Area:</span> You have {gaps.length} missing skill{gaps.length > 1 ? "s" : ""} to unlock this role.
                     </div>
                   )}
@@ -212,23 +214,23 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
               </div>
 
               {/* Openings */}
-              <div style={styles.section}>
-                <h3 style={styles.sectionTitle}>
-                  <FaBriefcase style={styles.sectionIcon} /> Current Openings ({jobs?.length || 0})
+              <div className={styles.section}>
+                <h3 className={styles.sectionTitle}>
+                  <FaBriefcase className={styles.sectionIcon} /> Current Openings ({jobs?.length || 0})
                 </h3>
                 {jobs && jobs.length > 0 ? (
-                  <div style={styles.jobsList}>
+                  <div className={styles.jobsList}>
                     {jobs.map((job, i) => (
-                      <div key={i} style={styles.jobMiniCard}>
+                      <div key={i} className={styles.jobMiniCard}>
                         <div>
-                          <h4 style={styles.jobMiniTitle}>{job.title}</h4>
-                          <span style={styles.jobMiniCompany}>{job.company} — {job.location}</span>
+                          <h4 className={styles.jobMiniTitle}>{job.title}</h4>
+                          <span className={styles.jobMiniCompany}>{job.company} — {job.location}</span>
                         </div>
                         <a 
                           href={job.url} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          style={styles.applyBtn}
+                          className={styles.applyBtn}
                         >
                           Apply <FaExternalLinkAlt style={{ fontSize: "10px", marginLeft: "4px" }} />
                         </a>
@@ -236,7 +238,7 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
                     ))}
                   </div>
                 ) : (
-                  <p style={styles.emptyText}>No live openings available for this role at the moment.</p>
+                  <p className={styles.emptyText}>No live openings available for this role at the moment.</p>
                 )}
               </div>
 
@@ -248,216 +250,3 @@ export default function RoleDetailDrawer({ isOpen, onClose, match }) {
   );
 }
 
-const styles = {
-  backdrop: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "#000",
-    zIndex: 2000
-  },
-  drawer: {
-    position: "fixed",
-    top: 0,
-    right: 0,
-    height: "100%",
-    width: "100%",
-    maxWidth: "500px",
-    background: "var(--bg-color)",
-    borderLeft: "1px solid var(--card-border)",
-    boxShadow: "-10px 0 30px rgba(0,0,0,0.5)",
-    zIndex: 2001,
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
-  header: {
-    padding: "24px",
-    borderBottom: "1px solid var(--card-border)",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  headerTitleArea: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px"
-  },
-  title: {
-    fontSize: "20px",
-    fontWeight: "800",
-    color: "var(--text-color)"
-  },
-  scoreRow: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px"
-  },
-  scoreBadge: {
-    background: "var(--accent-glow)",
-    color: "var(--accent-color)",
-    border: "1px solid rgba(59, 130, 246, 0.3)",
-    borderRadius: "6px",
-    padding: "2px 8px",
-    fontSize: "12px",
-    fontWeight: "700"
-  },
-  closeBtn: {
-    background: "none",
-    border: "none",
-    color: "var(--text-secondary)",
-    fontSize: "20px",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "36px",
-    height: "36px",
-    borderRadius: "50%",
-    transition: "background var(--transition-speed), color var(--transition-speed)",
-    "&:hover": {
-      background: "rgba(255,255,255,0.05)",
-      color: "var(--text-color)"
-    }
-  },
-  content: {
-    flex: 1,
-    padding: "24px",
-    overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "30px"
-  },
-  section: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px"
-  },
-  sectionTitle: {
-    fontSize: "15px",
-    fontWeight: "700",
-    color: "var(--text-color)",
-    display: "flex",
-    alignItems: "center",
-    gap: "8px"
-  },
-  sectionIcon: {
-    color: "var(--accent-color)"
-  },
-  descText: {
-    fontSize: "14px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.6"
-  },
-  bulletList: {
-    paddingLeft: "18px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px"
-  },
-  bulletItem: {
-    fontSize: "14px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.5"
-  },
-  statsCardGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "12px"
-  },
-  statCard: {
-    background: "var(--card-bg)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "12px",
-    padding: "16px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px"
-  },
-  statLabel: {
-    fontSize: "11px",
-    color: "var(--text-secondary)",
-    textTransform: "uppercase",
-    letterSpacing: "0.5px"
-  },
-  statValue: {
-    fontSize: "16px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  statNote: {
-    fontSize: "10px",
-    color: "var(--text-secondary)",
-    opacity: 0.7
-  },
-  skillsContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px"
-  },
-  subLabel: {
-    fontSize: "13px",
-    color: "var(--text-secondary)"
-  },
-  skillsGrid: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "8px"
-  },
-  skillChip: {
-    fontSize: "11px",
-    fontWeight: "700",
-    padding: "4px 10px",
-    borderRadius: "6px",
-    border: "1px solid"
-  },
-  gapsNotice: {
-    marginTop: "8px",
-    background: "rgba(239, 68, 68, 0.05)",
-    border: "1px solid rgba(239, 68, 68, 0.15)",
-    padding: "10px 14px",
-    borderRadius: "8px",
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.4"
-  },
-  jobsList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px"
-  },
-  jobMiniCard: {
-    background: "var(--card-bg)",
-    border: "1px solid var(--card-border)",
-    padding: "12px 16px",
-    borderRadius: "10px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "10px"
-  },
-  jobMiniTitle: {
-    fontSize: "13px",
-    fontWeight: "600",
-    color: "var(--text-color)"
-  },
-  jobMiniCompany: {
-    fontSize: "11px",
-    color: "var(--text-secondary)"
-  },
-  applyBtn: {
-    fontSize: "12px",
-    fontWeight: "600",
-    color: "var(--accent-color)",
-    textDecoration: "none",
-    display: "inline-flex",
-    alignItems: "center"
-  },
-  emptyText: {
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    fontStyle: "italic"
-  }
-};

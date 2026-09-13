@@ -7,6 +7,8 @@ import {
   FaRobot
 } from "react-icons/fa";
 
+import styles from '../styles/components/ResultsDashboard.module.css';
+
 export default function ResultsDashboard({ 
   result, 
   profile, 
@@ -115,19 +117,19 @@ export default function ResultsDashboard({
   // Render Skeleton Placeholders
   if (isLoading) {
     return (
-      <div style={styles.container}>
-        <div style={styles.skeletonHeader} className="skeleton" />
-        <div style={styles.skeletonStatsGrid}>
+      <div className={styles.container}>
+        <div className={`${styles.skeletonHeader} skeleton`} />
+        <div className={styles.skeletonStatsGrid}>
           {[1, 2, 3, 4].map(i => (
-            <div key={i} style={styles.skeletonStatCard} className="skeleton" />
+            <div key={i} className={`${styles.skeletonStatCard} skeleton`} />
           ))}
         </div>
-        <div style={styles.skeletonSummary} className="skeleton" />
+        <div className={`${styles.skeletonSummary} skeleton`} />
         <div className="two-column-grid" style={{ marginTop: "24px" }}>
-          <div style={styles.skeletonRoadmap} className="skeleton" />
-          <div style={styles.skeletonCardsGrid}>
+          <div className={`${styles.skeletonRoadmap} skeleton`} />
+          <div className={styles.skeletonCardsGrid}>
             {[1, 2, 3].map(i => (
-              <div key={i} style={styles.skeletonCard} className="skeleton" />
+              <div key={i} className={`${styles.skeletonCard} skeleton`} />
             ))}
           </div>
         </div>
@@ -136,81 +138,82 @@ export default function ResultsDashboard({
   }
 
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       
       {/* Fallback Banner */}
       {isMockJobsFallback && (
-        <div style={styles.banner}>
+        <div className={styles.banner}>
           <FaExclamationTriangle style={{ color: "var(--warning-color)", fontSize: "16px" }} />
           <span>Live jobs currently unavailable due to search provider rate limits. Showing sample opportunities instead.</span>
         </div>
       )}
 
       {/* Header Row */}
-      <div style={styles.header}>
+      <div className={styles.header}>
         <div>
-          <span style={styles.dateLabel}>{dateString}</span>
-          <h1 style={styles.greetingTitle} className="word-break-all">Hello, {profile?.name || "User"} 👋</h1>
-          <p style={styles.greetingSubtitle}>Here's your personalized career analysis.</p>
+          <span className={styles.dateLabel}>{dateString}</span>
+          <h1 className={`${styles.greetingTitle} word-break-all`}>Hello, {profile?.name || "User"} 👋</h1>
+          <p className={styles.greetingSubtitle}>Here's your personalized career analysis.</p>
         </div>
         
-        <div style={styles.headerActions} className="header-actions">
-          <button onClick={onViewConversation} style={styles.actionBtn} title="View Conversation Log">
+        <div className={`${styles.headerActions} header-actions`}>
+          <button onClick={onViewConversation} className={styles.actionBtn} title="View Conversation Log">
             <FaComments /> View Conversation
           </button>
-          <button onClick={onEditProfile} style={styles.actionBtn} title="Prefill questionnaire and edit info">
+          <button onClick={onEditProfile} className={styles.actionBtn} title="Prefill questionnaire and edit info">
             Edit Profile
           </button>
-          <button onClick={onRestart} style={styles.restartBtn} title="Restart from beginning">
+          <button onClick={onRestart} className={styles.restartBtn} title="Restart from beginning">
             <FaUndo /> Start New Analysis
           </button>
         </div>
       </div>
 
       {/* Overview Statistics Panel */}
-      <div style={styles.statsGrid}>
-        <div style={styles.statCard}>
-          <span style={styles.statLabel}>Best Match</span>
-          <span style={styles.statValue}>{stats.maxScore}%</span>
-          <div style={styles.progressBarTrack}>
-            <div style={{ ...styles.progressBarFill, width: `${stats.maxScore}%` }} />
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Best Match</span>
+          <span className={styles.statValue}>{stats.maxScore}%</span>
+          <div className={styles.progressBarTrack}>
+            <div className={styles.progressBarFill}
+style={{width: `${stats.maxScore}%` }} />
           </div>
         </div>
-        <div style={styles.statCard}>
-          <span style={styles.statLabel}>Suggested Roles</span>
-          <span style={styles.statValue}>{stats.rolesCount}</span>
-          <span style={styles.statSubText}>Calculated from DB</span>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Suggested Roles</span>
+          <span className={styles.statValue}>{stats.rolesCount}</span>
+          <span className={styles.statSubText}>Calculated from DB</span>
         </div>
-        <div style={styles.statCard}>
-          <span style={styles.statLabel}>Jobs Found</span>
-          <span style={styles.statValue}>{stats.jobsCount}</span>
-          <span style={styles.statSubText}>Live listings matches</span>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Jobs Found</span>
+          <span className={styles.statValue}>{stats.jobsCount}</span>
+          <span className={styles.statSubText}>Live listings matches</span>
         </div>
-        <div style={styles.statCard}>
-          <span style={styles.statLabel}>Skills Identified</span>
-          <span style={styles.statValue}>{stats.skillsCount}</span>
-          <span style={styles.statSubText}>In your profile</span>
+        <div className={styles.statCard}>
+          <span className={styles.statLabel}>Skills Identified</span>
+          <span className={styles.statValue}>{stats.skillsCount}</span>
+          <span className={styles.statSubText}>In your profile</span>
         </div>
       </div>
 
       {/* Top Section: AI Insights & Summary */}
-      <div style={styles.insightsCard}>
-        <div style={styles.cardHeader}>
-          <h2 style={styles.cardTitle}>
+      <div className={styles.insightsCard}>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>
             <FaRobot style={{ color: "var(--accent-color)", marginRight: "10px" }} /> AI Profile Summary & Insights
           </h2>
-          <span style={styles.completeBadge}>✓ Analysis Complete</span>
+          <span className={styles.completeBadge}>✓ Analysis Complete</span>
         </div>
-        <div style={styles.insightsBody}>
-          <p style={styles.aiSummary}>{result?.ai?.summary || "No AI summary returned from backend."}</p>
+        <div className={styles.insightsBody}>
+          <p className={styles.aiSummary}>{result?.ai?.summary || "No AI summary returned from backend."}</p>
           
-          <div style={styles.insightsDivider} />
+          <div className={styles.insightsDivider} />
           
-          <h3 style={styles.insightsTitle}>💡 Actionable Insights</h3>
-          <ul style={styles.insightsList}>
+          <h3 className={styles.insightsTitle}>💡 Actionable Insights</h3>
+          <ul className={styles.insightsList}>
             {aiInsights.map((insight, idx) => (
-              <li key={idx} style={styles.insightItem}>
-                <div style={styles.bulletPoint} />
+              <li key={idx} className={styles.insightItem}>
+                <div className={styles.bulletPoint} />
                 <span className="word-break-all">{insight}</span>
               </li>
             ))}
@@ -222,53 +225,53 @@ export default function ResultsDashboard({
       <div className="two-column-grid">
         
         {/* Suggested Timeline Roadmap */}
-        <div style={styles.roadmapPanel}>
-          <h2 style={styles.panelTitle}>
+        <div className={styles.roadmapPanel}>
+          <h2 className={styles.panelTitle}>
             <FaGraduationCap style={{ marginRight: "8px", color: "var(--accent-color)" }} />
             Suggested Learning Roadmap
           </h2>
           {result?.ai?.learningRoadmap && result.ai.learningRoadmap.length > 0 ? (
-            <div style={styles.timeline}>
+            <div className={styles.timeline}>
               {result.ai.learningRoadmap.map((step, idx) => (
-                <div key={idx} style={styles.timelineItem}>
-                  <div style={styles.timelineConnector}>
-                    <div style={styles.timelineDot}>{idx + 1}</div>
-                    {idx < result.ai.learningRoadmap.length - 1 && <div style={styles.timelineLine} />}
+                <div key={idx} className={styles.timelineItem}>
+                  <div className={styles.timelineConnector}>
+                    <div className={styles.timelineDot}>{idx + 1}</div>
+                    {idx < result.ai.learningRoadmap.length - 1 && <div className={styles.timelineLine} />}
                   </div>
-                  <div style={styles.timelineContent}>
-                    <h4 style={styles.timelineStepTitle}>Week {idx + 1} Priority</h4>
-                    <p style={styles.timelineStepText}>{step}</p>
+                  <div className={styles.timelineContent}>
+                    <h4 className={styles.timelineStepTitle}>Week {idx + 1} Priority</h4>
+                    <p className={styles.timelineStepText}>{step}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <p style={styles.emptyText}>No customized roadmap generated.</p>
+            <p className={styles.emptyText}>No customized roadmap generated.</p>
           )}
         </div>
 
         {/* Roles & Jobs Lists */}
-        <div style={styles.rolesPanel}>
+        <div className={styles.rolesPanel}>
           
           {/* Filters Bar */}
-          <div style={styles.filtersBar}>
-            <div style={styles.searchWrapper}>
-              <FaSearch style={styles.searchIcon} />
+          <div className={styles.filtersBar}>
+            <div className={styles.searchWrapper}>
+              <FaSearch className={styles.searchIcon} />
               <input
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search roles..."
-                style={styles.searchInput}
+                className={styles.searchInput}
               />
             </div>
             
-            <div style={styles.filterGroups}>
-              <div style={styles.filterWrapper}>
-                <FaFilter style={styles.filterIcon} />
+            <div className={styles.filterGroups}>
+              <div className={styles.filterWrapper}>
+                <FaFilter className={styles.filterIcon} />
                 <select
                   value={selectedExp}
                   onChange={(e) => setSelectedExp(e.target.value)}
-                  style={styles.filterSelect}
+                  className={styles.filterSelect}
                 >
                   <option value="all">Experience (All)</option>
                   <option value="entry">Entry Level (0 yrs)</option>
@@ -277,11 +280,11 @@ export default function ResultsDashboard({
                 </select>
               </div>
 
-              <div style={styles.filterWrapper}>
+              <div className={styles.filterWrapper}>
                 <select
                   value={selectedType}
                   onChange={(e) => setSelectedType(e.target.value)}
-                  style={styles.filterSelect}
+                  className={styles.filterSelect}
                 >
                   <option value="all">Job Types (All)</option>
                   <option value="remote">Remote-focused</option>
@@ -291,24 +294,23 @@ export default function ResultsDashboard({
           </div>
 
           {/* Role Matches Cards */}
-          <h2 style={styles.panelTitle}>Suggested Career Matches ({filteredMatches.length})</h2>
+          <h2 className={styles.panelTitle}>Suggested Career Matches ({filteredMatches.length})</h2>
           
-          <div style={styles.matchesList}>
+          <div className={styles.matchesList}>
             {filteredMatches.length > 0 ? (
               filteredMatches.map((m, idx) => (
-                <div key={idx} style={styles.matchCard} className="hover-lift">
-                  <div style={styles.matchCardHeader}>
+                <div key={idx} className={`${styles.matchCard} hover-lift`}>
+                  <div className={styles.matchCardHeader}>
                     <div>
-                      <h3 style={styles.matchRoleTitle}>{m.role.title}</h3>
-                      <p style={styles.matchRoleDesc}>{m.role.description}</p>
+                      <h3 className={styles.matchRoleTitle}>{m.role.title}</h3>
+                      <p className={styles.matchRoleDesc}>{m.role.description}</p>
                     </div>
-                    <div style={styles.matchScoreBadgeRow}>
-                      <span style={styles.matchScoreText}>{m.score}% Match</span>
-                      <div style={styles.matchScoreBarTrack}>
+                    <div className={styles.matchScoreBadgeRow}>
+                      <span className={styles.matchScoreText}>{m.score}% Match</span>
+                      <div className={styles.matchScoreBarTrack}>
                         <div 
-                          style={{ 
-                            ...styles.matchScoreBarFill, 
-                            width: `${m.score}%`,
+                          className={styles.matchScoreBarFill}
+style={{width: `${m.score}%`,
                             background: m.score >= 70 ? "var(--success-color)" : "var(--accent-color)"
                           }} 
                         />
@@ -317,15 +319,15 @@ export default function ResultsDashboard({
                   </div>
 
                   {/* Skills Grid */}
-                  <div style={styles.matchCardBody}>
-                    <div style={styles.skillsTagRow}>
-                      <span style={styles.tagGroupLabel}>Matched Skills:</span>
-                      <div style={styles.chipsGrid}>
+                  <div className={styles.matchCardBody}>
+                    <div className={styles.skillsTagRow}>
+                      <span className={styles.tagGroupLabel}>Matched Skills:</span>
+                      <div className={styles.chipsGrid}>
                         {(m.role.keySkills || m.role.requiredSkills || []).map((skill, sIdx) => {
                           const isMissing = m.gaps?.some(g => g.toLowerCase() === skill.toLowerCase());
                           if (isMissing) return null;
                           return (
-                            <span key={sIdx} style={styles.matchChip}>
+                            <span key={sIdx} className={styles.matchChip}>
                               ✓ {skill.toUpperCase()}
                             </span>
                           );
@@ -334,11 +336,11 @@ export default function ResultsDashboard({
                     </div>
 
                     {m.gaps && m.gaps.length > 0 && (
-                      <div style={styles.skillsTagRow}>
-                        <span style={styles.tagGroupLabel}>Missing:</span>
-                        <div style={styles.chipsGrid}>
+                      <div className={styles.skillsTagRow}>
+                        <span className={styles.tagGroupLabel}>Missing:</span>
+                        <div className={styles.chipsGrid}>
                           {m.gaps.map((gap, gIdx) => (
-                            <span key={gIdx} style={styles.gapChip}>
+                            <span key={gIdx} className={styles.gapChip}>
                               ⚠ {gap.toUpperCase()}
                             </span>
                           ))}
@@ -348,13 +350,13 @@ export default function ResultsDashboard({
                   </div>
 
                   {/* Openings Count and View Button */}
-                  <div style={styles.matchCardFooter}>
-                    <span style={styles.jobsCountLabel}>
+                  <div className={styles.matchCardFooter}>
+                    <span className={styles.jobsCountLabel}>
                       💼 {m.jobs?.length || 0} job opportunity{(m.jobs?.length || 0) !== 1 ? "s" : ""} found
                     </span>
                     <button 
                       onClick={() => setSelectedRoleForDrawer(m)}
-                      style={styles.detailsBtn}
+                      className={styles.detailsBtn}
                     >
                       View Details <FaChevronRight style={{ marginLeft: "6px", fontSize: "11px" }} />
                     </button>
@@ -362,8 +364,8 @@ export default function ResultsDashboard({
                 </div>
               ))
             ) : (
-              <div style={styles.emptyState}>
-                <span style={styles.emptyIllustration}>🔍</span>
+              <div className={styles.emptyState}>
+                <span className={styles.emptyIllustration}>🔍</span>
                 <h3>No careers found</h3>
                 <p>Try refining your search terms or adjustments.</p>
               </div>
@@ -374,39 +376,38 @@ export default function ResultsDashboard({
       </div>
 
       {/* Global Recommended Jobs List */}
-      <div style={styles.globalJobsSection}>
-        <h2 style={styles.panelTitle}>Recommended Live Openings</h2>
-        <div style={styles.jobsGrid}>
+      <div className={styles.globalJobsSection}>
+        <h2 className={styles.panelTitle}>Recommended Live Openings</h2>
+        <div className={styles.jobsGrid}>
           {filteredMatches.flatMap(m => m.jobs || []).slice(0, 6).map((job, idx) => (
-            <div key={idx} style={styles.jobCard} className="hover-lift">
-              <div style={styles.jobCardHeader}>
+            <div key={idx} className={`${styles.jobCard} hover-lift`}>
+              <div className={styles.jobCardHeader}>
                 <div 
-                  style={{ 
-                    ...styles.companyAvatar, 
-                    background: getAvatarBg(job.company) 
+                  className={styles.companyAvatar}
+style={{background: getAvatarBg(job.company) 
                   }}
                 >
                   {getAvatarInitials(job.company)}
                 </div>
                 <div>
-                  <h4 style={styles.jobTitleText}>{job.title}</h4>
-                  <span style={styles.companyText}>{job.company}</span>
+                  <h4 className={styles.jobTitleText}>{job.title}</h4>
+                  <span className={styles.companyText}>{job.company}</span>
                 </div>
               </div>
               
-              <div style={styles.jobMetaRow}>
-                <span style={styles.metaBadge}>{job.location || "Remote"}</span>
-                <span style={styles.metaBadge}>Full Time</span>
-                <span style={styles.salaryBadge}>Salary Not Available</span>
+              <div className={styles.jobMetaRow}>
+                <span className={styles.metaBadge}>{job.location || "Remote"}</span>
+                <span className={styles.metaBadge}>Full Time</span>
+                <span className={styles.salaryBadge}>Salary Not Available</span>
               </div>
 
-              <p style={styles.jobSnippet}>{job.snippet || "Explore this job posting for further details."}</p>
+              <p className={styles.jobSnippet}>{job.snippet || "Explore this job posting for further details."}</p>
 
               <a 
                 href={job.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                style={styles.jobApplyLink}
+                className={styles.jobApplyLink}
               >
                 Open Original Job
               </a>
@@ -448,602 +449,3 @@ function RoleDetailDrawerWrapper({ isOpen, onClose, match }) {
   return <DrawerComp isOpen={isOpen} onClose={onClose} match={match} />;
 }
 
-const styles = {
-  container: {
-    maxWidth: "1400px",
-    margin: "0 auto",
-    padding: "30px 24px 80px 24px",
-    width: "100%",
-    minHeight: "calc(100vh - 128px)",
-    display: "flex",
-    flexDirection: "column",
-    gap: "30px"
-  },
-  banner: {
-    background: "rgba(245, 158, 11, 0.08)",
-    border: "1px solid var(--warning-color)",
-    borderRadius: "12px",
-    padding: "12px 18px",
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    color: "var(--text-color)",
-    fontSize: "13px",
-    lineHeight: "1.4"
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    flexWrap: "wrap",
-    gap: "20px"
-  },
-  dateLabel: {
-    fontSize: "12px",
-    color: "var(--text-secondary)",
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "0.5px"
-  },
-  greetingTitle: {
-    fontSize: "28px",
-    fontWeight: "850",
-    letterSpacing: "-0.5px",
-    color: "var(--text-color)",
-    marginTop: "4px"
-  },
-  greetingSubtitle: {
-    fontSize: "14px",
-    color: "var(--text-secondary)"
-  },
-  headerActions: {
-    display: "flex",
-    gap: "12px",
-    flexWrap: "wrap"
-  },
-  actionBtn: {
-    background: "rgba(255, 255, 255, 0.05)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "10px",
-    color: "var(--text-color)",
-    padding: "10px 16px",
-    fontSize: "13px",
-    fontWeight: "600",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    transition: "background var(--transition-speed)"
-  },
-  restartBtn: {
-    background: "var(--accent-color)",
-    border: "none",
-    borderRadius: "10px",
-    color: "#fff",
-    padding: "10px 16px",
-    fontSize: "13px",
-    fontWeight: "600",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-    transition: "background var(--transition-speed)"
-  },
-  statsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
-    gap: "20px"
-  },
-  statCard: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    padding: "20px 24px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px"
-  },
-  statLabel: {
-    fontSize: "12px",
-    color: "var(--text-secondary)",
-    fontWeight: "600",
-    textTransform: "uppercase",
-    letterSpacing: "0.5px"
-  },
-  statValue: {
-    fontSize: "28px",
-    fontWeight: "800",
-    color: "var(--text-color)"
-  },
-  statSubText: {
-    fontSize: "11px",
-    color: "var(--text-secondary)",
-    opacity: 0.7
-  },
-  progressBarTrack: {
-    height: "4px",
-    background: "var(--card-border)",
-    borderRadius: "2px",
-    width: "100%",
-    marginTop: "4px",
-    overflow: "hidden"
-  },
-  progressBarFill: {
-    height: "100%",
-    background: "var(--accent-color)",
-    borderRadius: "2px"
-  },
-  insightsCard: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    padding: "24px"
-  },
-  cardHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    borderBottom: "1px solid var(--card-border)",
-    paddingBottom: "14px",
-    marginBottom: "16px"
-  },
-  cardTitle: {
-    fontSize: "16px",
-    fontWeight: "750",
-    color: "var(--text-color)",
-    display: "flex",
-    alignItems: "center"
-  },
-  completeBadge: {
-    background: "rgba(16, 185, 129, 0.12)",
-    color: "var(--success-color)",
-    border: "1px solid rgba(16, 185, 129, 0.25)",
-    borderRadius: "20px",
-    padding: "3px 10px",
-    fontSize: "11px",
-    fontWeight: "700"
-  },
-  insightsBody: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px"
-  },
-  aiSummary: {
-    fontSize: "14px",
-    lineHeight: "1.6",
-    color: "var(--text-color)"
-  },
-  insightsDivider: {
-    height: "1px",
-    background: "var(--card-border)"
-  },
-  insightsTitle: {
-    fontSize: "14px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  insightsList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-    listStyle: "none"
-  },
-  insightItem: {
-    display: "flex",
-    alignItems: "flex-start",
-    gap: "10px",
-    fontSize: "13.5px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.5"
-  },
-  bulletPoint: {
-    width: "6px",
-    height: "6px",
-    borderRadius: "50%",
-    background: "var(--accent-color)",
-    marginTop: "6px",
-    flexShrink: 0
-  },
-  twoColumnGrid: {
-    // Replaced by .two-column-grid class in index.css
-  },
-  roadmapPanel: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    padding: "24px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-    height: "fit-content"
-  },
-  panelTitle: {
-    fontSize: "16px",
-    fontWeight: "750",
-    color: "var(--text-color)",
-    display: "flex",
-    alignItems: "center"
-  },
-  timeline: {
-    display: "flex",
-    flexDirection: "column",
-    paddingLeft: "10px"
-  },
-  timelineItem: {
-    display: "flex",
-    gap: "16px"
-  },
-  timelineConnector: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  timelineDot: {
-    width: "26px",
-    height: "26px",
-    borderRadius: "50%",
-    background: "rgba(59, 130, 246, 0.15)",
-    border: "1.5px solid var(--accent-color)",
-    color: "var(--accent-color)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "11px",
-    fontWeight: "700"
-  },
-  timelineLine: {
-    width: "2px",
-    flex: 1,
-    background: "var(--card-border)",
-    margin: "4px 0"
-  },
-  timelineContent: {
-    paddingBottom: "24px",
-    flex: 1
-  },
-  timelineStepTitle: {
-    fontSize: "14px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  timelineStepText: {
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.5",
-    marginTop: "4px"
-  },
-  emptyText: {
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    fontStyle: "italic"
-  },
-  rolesPanel: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px"
-  },
-  filtersBar: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "14px",
-    padding: "12px 16px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: "12px"
-  },
-  searchWrapper: {
-    position: "relative",
-    flex: 1,
-    minWidth: "200px"
-  },
-  searchIcon: {
-    position: "absolute",
-    left: "12px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    color: "var(--text-secondary)",
-    fontSize: "14px"
-  },
-  searchInput: {
-    width: "100%",
-    background: "var(--bg-color)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "10px",
-    padding: "0 12px 0 36px",
-    height: "38px",
-    fontSize: "13px",
-    color: "var(--text-color)",
-    outline: "none"
-  },
-  filterGroups: {
-    display: "flex",
-    gap: "10px",
-    flexWrap: "wrap"
-  },
-  filterWrapper: {
-    display: "flex",
-    alignItems: "center",
-    background: "var(--bg-color)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "10px",
-    padding: "0 10px",
-    height: "38px"
-  },
-  filterIcon: {
-    color: "var(--text-secondary)",
-    fontSize: "12px",
-    marginRight: "6px"
-  },
-  filterSelect: {
-    background: "none",
-    border: "none",
-    color: "var(--text-color)",
-    fontSize: "13px",
-    outline: "none",
-    cursor: "pointer",
-    paddingRight: "8px"
-  },
-  matchesList: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "18px"
-  },
-  matchCard: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "var(--border-radius)",
-    boxShadow: "var(--card-shadow)",
-    padding: "20px 24px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px"
-  },
-  matchCardHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    gap: "16px"
-  },
-  matchRoleTitle: {
-    fontSize: "16px",
-    fontWeight: "750",
-    color: "var(--text-color)"
-  },
-  matchRoleDesc: {
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.4",
-    marginTop: "4px"
-  },
-  matchScoreBadgeRow: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-end",
-    gap: "6px",
-    flexShrink: 0
-  },
-  matchScoreText: {
-    fontSize: "14px",
-    fontWeight: "700",
-    color: "var(--accent-color)"
-  },
-  matchScoreBarTrack: {
-    height: "4px",
-    width: "80px",
-    background: "var(--card-border)",
-    borderRadius: "2px",
-    overflow: "hidden"
-  },
-  matchScoreBarFill: {
-    height: "100%",
-    borderRadius: "2px"
-  },
-  matchCardBody: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px"
-  },
-  skillsTagRow: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: "8px",
-    flexWrap: "wrap"
-  },
-  tagGroupLabel: {
-    fontSize: "12px",
-    fontWeight: "600",
-    color: "var(--text-secondary)",
-    marginTop: "3px"
-  },
-  chipsGrid: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "6px"
-  },
-  matchChip: {
-    fontSize: "10.5px",
-    fontWeight: "600",
-    color: "var(--success-color)",
-    background: "rgba(16, 185, 129, 0.1)",
-    padding: "2px 8px",
-    borderRadius: "4px"
-  },
-  gapChip: {
-    fontSize: "10.5px",
-    fontWeight: "600",
-    color: "var(--danger-color)",
-    background: "rgba(239, 68, 68, 0.1)",
-    padding: "2px 8px",
-    borderRadius: "4px"
-  },
-  matchCardFooter: {
-    borderTop: "1px solid rgba(255, 255, 255, 0.04)",
-    paddingTop: "12px",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  jobsCountLabel: {
-    fontSize: "12px",
-    color: "var(--text-secondary)"
-  },
-  detailsBtn: {
-    background: "rgba(59, 130, 246, 0.1)",
-    border: "1px solid rgba(59, 130, 246, 0.2)",
-    color: "var(--accent-color)",
-    padding: "6px 14px",
-    borderRadius: "8px",
-    fontSize: "12px",
-    fontWeight: "600",
-    cursor: "pointer",
-    display: "inline-flex",
-    alignItems: "center",
-    transition: "background var(--transition-speed)"
-  },
-  emptyState: {
-    background: "var(--card-bg)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "var(--border-radius)",
-    padding: "40px",
-    textAlign: "center",
-    color: "var(--text-secondary)"
-  },
-  emptyIllustration: {
-    fontSize: "36px",
-    marginBottom: "10px",
-    display: "block"
-  },
-  globalJobsSection: {
-    marginTop: "20px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px"
-  },
-  jobsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))",
-    gap: "20px"
-  },
-  jobCard: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    padding: "20px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "14px"
-  },
-  jobCardHeader: {
-    display: "flex",
-    alignItems: "center",
-    gap: "12px"
-  },
-  companyAvatar: {
-    width: "40px",
-    height: "40px",
-    borderRadius: "8px",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
-    fontWeight: "750",
-    fontSize: "18px"
-  },
-  jobTitleText: {
-    fontSize: "14px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  companyText: {
-    fontSize: "12px",
-    color: "var(--text-secondary)"
-  },
-  jobMetaRow: {
-    display: "flex",
-    gap: "8px",
-    flexWrap: "wrap"
-  },
-  metaBadge: {
-    fontSize: "11px",
-    fontWeight: "600",
-    color: "var(--text-secondary)",
-    background: "rgba(255,255,255,0.04)",
-    padding: "2px 8px",
-    borderRadius: "4px"
-  },
-  salaryBadge: {
-    fontSize: "11px",
-    fontWeight: "600",
-    color: "var(--text-secondary)",
-    background: "rgba(255, 255, 255, 0.04)",
-    padding: "2px 8px",
-    borderRadius: "4px",
-    opacity: 0.8
-  },
-  jobSnippet: {
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.4",
-    display: "-webkit-box",
-    WebkitLineClamp: "2",
-    WebkitBoxOrient: "vertical",
-    overflow: "hidden"
-  },
-  jobApplyLink: {
-    background: "rgba(255, 255, 255, 0.05)",
-    border: "1px solid var(--card-border)",
-    color: "var(--text-color)",
-    padding: "8px",
-    borderRadius: "8px",
-    fontSize: "12px",
-    fontWeight: "600",
-    textAlign: "center",
-    textDecoration: "none",
-    transition: "background var(--transition-speed)"
-  },
-  skeletonHeader: {
-    height: "70px",
-    borderRadius: "12px",
-    width: "60%"
-  },
-  skeletonStatsGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "20px"
-  },
-  skeletonStatCard: {
-    height: "100px",
-    borderRadius: "16px"
-  },
-  skeletonSummary: {
-    height: "150px",
-    borderRadius: "16px"
-  },
-  skeletonRoadmap: {
-    height: "350px",
-    borderRadius: "16px"
-  },
-  skeletonCardsGrid: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px"
-  },
-  skeletonCard: {
-    height: "180px",
-    borderRadius: "16px"
-  }
-};
