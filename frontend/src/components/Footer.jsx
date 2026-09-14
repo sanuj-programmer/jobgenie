@@ -1,22 +1,24 @@
 import React from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 
+import styles from '../styles/components/Footer.module.css';
+
 export default function Footer() {
   return (
-    <footer style={styles.footer}>
-      <div style={styles.container} className="footer-container">
-        <div style={styles.info} className="footer-info">
-          <span style={styles.credits}>
-            Built with ❤️ by <span style={styles.author}>Sanuj Kumar Singh</span>
+    <footer className={styles.footer}>
+      <div className={`${styles.container} footer-container`}>
+        <div className={`${styles.info} footer-info`}>
+          <span className={styles.credits}>
+            Built with ❤️ by <span className={styles.author}>Sanuj Kumar Singh</span>
           </span>
         </div>
 
-        <div style={styles.links}>
+        <div className={styles.links}>
           <a
             href="https://github.com/sanuj-programmer"
             target="_blank"
             rel="noopener noreferrer"
-            style={styles.link}
+            className={styles.link}
             aria-label="GitHub Profile"
           >
             <FaGithub /> GitHub
@@ -25,7 +27,7 @@ export default function Footer() {
             href="https://www.linkedin.com/in/sanuj-kumar-singh/"
             target="_blank"
             rel="noopener noreferrer"
-            style={styles.link}
+            className={styles.link}
             aria-label="LinkedIn Profile"
           >
             <FaLinkedin /> LinkedIn
@@ -36,50 +38,3 @@ export default function Footer() {
   );
 }
 
-const styles = {
-  footer: {
-    width: "100%",
-    background: "rgba(15, 23, 42, 0.4)",
-    borderTop: "1px solid var(--card-border)",
-    padding: "20px 0",
-    marginTop: "auto",
-    transition: "background var(--transition-speed), border var(--transition-speed)"
-  },
-  container: {
-    maxWidth: "1400px",
-    margin: "0 auto",
-    padding: "0 24px",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexWrap: "wrap",
-    gap: "16px"
-  },
-  info: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px"
-  },
-  credits: {
-    fontSize: "13px",
-    color: "var(--text-secondary)"
-  },
-  author: {
-    color: "var(--text-color)",
-    fontWeight: "600"
-  },
-  links: {
-    display: "flex",
-    gap: "24px"
-  },
-  link: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "6px",
-    fontSize: "13px",
-    color: "var(--text-secondary)",
-    textDecoration: "none",
-    transition: "color var(--transition-speed)"
-  }
-};

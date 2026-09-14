@@ -1,0 +1,683 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 24px 80px 24px;
+  width: 100%;
+  min-height: calc(100vh - 128px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.banner {
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid var(--warning-color);
+  border-radius: 12px;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-color);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dateLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.greetingTitle {
+  font-size: 28px;
+  font-weight: 850;
+  letter-spacing: -0.5px;
+  color: var(--text-color);
+  margin-top: 4px;
+}
+
+.greetingSubtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.headerActions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  color: var(--text-color);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--transition-speed);
+}
+
+.restartBtn {
+  background: var(--accent-color);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background var(--transition-speed);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 20px;
+}
+
+.statCard {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+.statSubText {
+  font-size: 11px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.progressBarTrack {
+  height: 4px;
+  background: var(--card-border);
+  border-radius: 2px;
+  width: 100%;
+  margin-top: 4px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.insightsCard {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  padding: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--card-border);
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+}
+
+.completeBadge {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--success-color);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.insightsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aiSummary {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.insightsDivider {
+  height: 1px;
+  background: var(--card-border);
+}
+
+.insightsTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.insightsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+}
+
+.insightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.bulletPoint {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.twoColumnGrid {
+}
+
+.roadmapPanel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: fit-content;
+}
+
+.panelTitle {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.timelineItem {
+  display: flex;
+  gap: 16px;
+}
+
+.timelineConnector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timelineDot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.15);
+  border: 1.5px solid var(--accent-color);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.timelineLine {
+  width: 2px;
+  flex: 1;
+  background: var(--card-border);
+  margin: 4px 0;
+}
+
+.timelineContent {
+  padding-bottom: 24px;
+  flex: 1;
+}
+
+.timelineStepTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.timelineStepText {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin-top: 4px;
+}
+
+.emptyText {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.rolesPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.filtersBar {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.searchInput {
+  width: 100%;
+  background: var(--bg-color);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0 12px 0 36px;
+  height: 38px;
+  font-size: 13px;
+  color: var(--text-color);
+  outline: none;
+}
+
+.filterGroups {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filterWrapper {
+  display: flex;
+  align-items: center;
+  background: var(--bg-color);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 38px;
+}
+
+.filterIcon {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-right: 6px;
+}
+
+.filterSelect {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  padding-right: 8px;
+}
+
+.matchesList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.matchCard {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.matchCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.matchRoleTitle {
+  font-size: 16px;
+  font-weight: 750;
+  color: var(--text-color);
+}
+
+.matchRoleDesc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-top: 4px;
+}
+
+.matchScoreBadgeRow {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.matchScoreText {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.matchScoreBarTrack {
+  height: 4px;
+  width: 80px;
+  background: var(--card-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.matchScoreBarFill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.matchCardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skillsTagRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tagGroupLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.chipsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.matchChip {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--success-color);
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.gapChip {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--danger-color);
+  background: rgba(239, 68, 68, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.matchCardFooter {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.jobsCountLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.detailsBtn {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  color: var(--accent-color);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: background var(--transition-speed);
+}
+
+.emptyState {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  padding: 40px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.emptyIllustration {
+  font-size: 36px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.globalJobsSection {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.jobsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 20px;
+}
+
+.jobCard {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.jobCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.companyAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 750;
+  font-size: 18px;
+}
+
+.jobTitleText {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.companyText {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.jobMetaRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.metaBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.salaryBadge {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 8px;
+  border-radius: 4px;
+  opacity: 0.8;
+}
+
+.jobSnippet {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.jobApplyLink {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: background var(--transition-speed);
+}
+
+.skeletonHeader {
+  height: 70px;
+  border-radius: 12px;
+  width: 60%;
+}
+
+.skeletonStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.skeletonStatCard {
+  height: 100px;
+  border-radius: 16px;
+}
+
+.skeletonSummary {
+  height: 150px;
+  border-radius: 16px;
+}
+
+.skeletonRoadmap {
+  height: 350px;
+  border-radius: 16px;
+}
+
+.skeletonCardsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skeletonCard {
+  height: 180px;
+  border-radius: 16px;
+}
+

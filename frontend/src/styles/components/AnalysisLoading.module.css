@@ -1,0 +1,121 @@
+.container {
+  min-height: calc(100vh - 128px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  width: 100%;
+  max-width: 500px;
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.brandHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.brandIcon {
+  font-size: 1.8rem;
+}
+
+.brandTitle {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(90deg, var(--accent-color) 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--text-color);
+}
+
+.loadingWidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.spinner {
+  font-size: 36px;
+  color: var(--accent-color);
+  animation: skeleton-pulse 1.2s infinite linear;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.stepsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stepRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: opacity 0.3s, color 0.3s;
+}
+
+.stepIndicator {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkIcon {
+  font-size: 16px;
+}
+
+.activeDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 10px var(--accent-color);
+}
+
+.pendingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  opacity: 0.5;
+}
+
+.stepText {
+  font-size: 14px;
+}
+
+.progressTrack {
+  height: 4px;
+  width: 100%;
+  background: var(--card-border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color) 0%, #a855f7 100%);
+}
+
