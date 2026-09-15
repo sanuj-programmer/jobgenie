@@ -178,6 +178,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .modalUserBubble {
@@ -190,6 +192,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .speakerLabel {
