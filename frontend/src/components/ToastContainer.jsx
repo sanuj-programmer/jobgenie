@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaCheckCircle, FaExclamationCircle, FaInfoCircle } from "react-icons/fa";
 
+import styles from '../styles/components/ToastContainer.module.css';
+
 export default function ToastContainer() {
   const [toasts, setToasts] = useState([]);
 
@@ -38,7 +40,7 @@ export default function ToastContainer() {
   };
 
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <AnimatePresence>
         {toasts.map((toast) => (
           <motion.div
@@ -46,14 +48,13 @@ export default function ToastContainer() {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.15 } }}
-            style={{
-              ...styles.toast,
-              borderColor: toast.type === "error" ? "var(--danger-color)" : "var(--card-border)"
+            className={styles.toast}
+style={{borderColor: toast.type === "error" ? "var(--danger-color)" : "var(--card-border)"
             }}
             onClick={() => removeToast(toast.id)}
           >
             {getIcon(toast.type)}
-            <span style={styles.message}>{toast.message}</span>
+            <span className={styles.message}>{toast.message}</span>
           </motion.div>
         ))}
       </AnimatePresence>
@@ -70,37 +71,3 @@ export const toast = (message, type = "success", duration = 3000) => {
   );
 };
 
-const styles = {
-  container: {
-    position: "fixed",
-    bottom: "24px",
-    right: "24px",
-    zIndex: 9999,
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px",
-    maxWidth: "350px",
-    pointerEvents: "none"
-  },
-  toast: {
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    padding: "14px 20px",
-    background: "rgba(30, 41, 59, 0.85)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "12px",
-    color: "var(--text-color)",
-    fontSize: "14px",
-    fontWeight: "500",
-    cursor: "pointer",
-    pointerEvents: "auto",
-    userSelect: "none"
-  },
-  message: {
-    flex: 1,
-    lineHeight: "1.4"
-  }
-};
