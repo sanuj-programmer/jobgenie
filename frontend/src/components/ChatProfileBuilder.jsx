@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { FaRobot, FaUser, FaArrowLeft, FaPaperPlane } from "react-icons/fa";
 import { toast } from "./ToastContainer";
 
+import styles from '../styles/components/ChatProfileBuilder.module.css';
+
 export default function ChatProfileBuilder({ onComplete, prefillData }) {
   const [step, setStep] = useState(0);
   const [answer, setAnswer] = useState("");
@@ -274,28 +276,28 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
 
   const getProfileFieldDisplay = (key, val) => {
     if (val === null || val === undefined || (Array.isArray(val) ? val.length === 0 : val === "")) {
-      return <span style={styles.waitingText}>Waiting...</span>;
+      return <span className={styles.waitingText}>Waiting...</span>;
     }
-    return <span style={styles.filledText}>{Array.isArray(val) ? val.join(", ") : String(val)}</span>;
+    return <span className={styles.filledText}>{Array.isArray(val) ? val.join(", ") : String(val)}</span>;
   };
 
   return (
-    <div style={styles.container}>
+    <div className={styles.container}>
       <div className="chat-two-column-grid" style={{ marginTop: "24px" }}>
         
         {/* Left Column: Conversational Chat */}
-        <div style={styles.chatPanel}>
-          <div style={styles.chatHeader}>
-            <div style={styles.botIconWrapper}>
+        <div className={styles.chatPanel}>
+          <div className={styles.chatHeader}>
+            <div className={styles.botIconWrapper}>
               <FaRobot />
             </div>
             <div>
-              <h2 style={styles.chatTitle}>JobGenie Career Assistant</h2>
-              <span style={styles.chatStatus}>AI Agent Online</span>
+              <h2 className={styles.chatTitle}>JobGenie Career Assistant</h2>
+              <span className={styles.chatStatus}>AI Agent Online</span>
             </div>
           </div>
 
-          <div style={styles.chatMessageArea} className="chat-scrollbar">
+          <div className={`${styles.chatMessageArea} chat-scrollbar`}>
             <AnimatePresence initial={false}>
               {messages.map((m, i) => (
                 <motion.div
@@ -303,20 +305,18 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
                   initial={{ opacity: 0, y: 15, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  style={{
-                    ...styles.messageRow,
-                    justifyContent: m.sender === "bot" ? "flex-start" : "flex-end"
+                  className={styles.messageRow}
+style={{justifyContent: m.sender === "bot" ? "flex-start" : "flex-end"
                   }}
                 >
                   {m.sender === "bot" && (
-                    <div style={styles.avatarBot}>
+                    <div className={styles.avatarBot}>
                       <FaRobot />
                     </div>
                   )}
                   <div
-                    style={{
-                      ...styles.messageBubble,
-                      background: m.sender === "bot" ? "var(--card-bg)" : "var(--accent-color)",
+                    className={styles.messageBubble}
+style={{background: m.sender === "bot" ? "var(--card-bg)" : "var(--accent-color)",
                       border: m.sender === "bot" ? "1px solid var(--card-border)" : "none",
                       color: m.sender === "bot" ? "var(--text-color)" : "#fff",
                       borderRadius: m.sender === "bot" ? "0px 16px 16px 16px" : "16px 0px 16px 16px"
@@ -325,7 +325,7 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
                     <span>{m.text}</span>
                   </div>
                   {m.sender === "user" && (
-                    <div style={styles.avatarUser}>
+                    <div className={styles.avatarUser}>
                       <FaUser />
                     </div>
                   )}
@@ -334,16 +334,17 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
             </AnimatePresence>
 
             {isBotTyping && (
-              <div style={{ ...styles.messageRow, justifyContent: "flex-start" }}>
-                <div style={styles.avatarBot}>
+              <div className={styles.messageRow}
+style={{justifyContent: "flex-start" }}>
+                <div className={styles.avatarBot}>
                   <FaRobot />
                 </div>
-                <div style={styles.typingBubble}>
-                  <span style={styles.typingText}>🤖 AI is typing</span>
-                  <div style={styles.dots}>
-                    <span style={styles.dot}>.</span>
-                    <span style={styles.dot}>.</span>
-                    <span style={styles.dot}>.</span>
+                <div className={styles.typingBubble}>
+                  <span className={styles.typingText}>🤖 AI is typing</span>
+                  <div className={styles.dots}>
+                    <span className={styles.dot}>.</span>
+                    <span className={styles.dot}>.</span>
+                    <span className={styles.dot}>.</span>
                   </div>
                 </div>
               </div>
@@ -357,39 +358,38 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
               e.preventDefault();
               next();
             }}
-            style={styles.inputArea}
+            className={styles.inputArea}
           >
             {step > 0 && (
               <button
                 type="button"
                 onClick={handleBack}
-                style={styles.backBtn}
+                className={styles.backBtn}
                 title="Go back to previous question"
                 aria-label="Back"
               >
                 <FaArrowLeft />
               </button>
             )}
-            <div style={styles.inputWrapper}>
+            <div className={styles.inputWrapper}>
               <input
                 ref={inputRef}
                 value={answer}
                 maxLength={questions[Math.min(step, questions.length - 1)].maxLength}
                 onChange={(e) => setAnswer(e.target.value)}
                 placeholder={questions[Math.min(step, questions.length - 1)].placeholder || `Answer: ${questions[Math.min(step, questions.length - 1)].key}...`}
-                style={styles.input}
+                className={styles.input}
                 disabled={isBotTyping}
                 autoFocus
               />
-              <span style={styles.charCount}>
+              <span className={styles.charCount}>
                 {answer.length}/{questions[Math.min(step, questions.length - 1)].maxLength}
               </span>
             </div>
             <button
               type="submit"
-              style={{
-                ...styles.sendBtn,
-                background: answer.trim() ? "var(--accent-color)" : "rgba(255,255,255,0.05)",
+              className={styles.sendBtn}
+style={{background: answer.trim() ? "var(--accent-color)" : "rgba(255,255,255,0.05)",
                 color: answer.trim() ? "#fff" : "var(--text-secondary)",
                 cursor: answer.trim() ? "pointer" : "not-allowed"
               }}
@@ -401,65 +401,65 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
         </div>
 
         {/* Right Column: Live Profile Panel */}
-        <div style={styles.profilePanel}>
-          <div style={styles.panelHeader}>
-            <h3 style={styles.panelTitle}>Live Profile Card</h3>
-            <span style={styles.stepIndicator}>
+        <div className={styles.profilePanel}>
+          <div className={styles.panelHeader}>
+            <h3 className={styles.panelTitle}>Live Profile Card</h3>
+            <span className={styles.stepIndicator}>
               Step {Math.min(step + 1, questions.length)} of {questions.length}
             </span>
           </div>
 
           {/* Completion Progress Bar */}
-          <div style={styles.progressContainer}>
-            <div style={styles.progressBarWrapper}>
+          <div className={styles.progressContainer}>
+            <div className={styles.progressBarWrapper}>
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{ width: `${progressPercentage}%` }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
-                style={styles.progressBar}
+                className={styles.progressBar}
               />
             </div>
-            <span style={styles.progressLabel}>{progressPercentage}% Complete</span>
+            <span className={styles.progressLabel}>{progressPercentage}% Complete</span>
           </div>
 
-          <div style={styles.profileItems}>
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>👤 Name</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("name", data.name)}</div>
+          <div className={styles.profileItems}>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>👤 Name</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("name", data.name)}</div>
             </div>
             
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>📧 Email</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("email", data.email)}</div>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>📧 Email</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("email", data.email)}</div>
             </div>
 
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>📞 Phone</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("phoneNumber", data.phoneNumber)}</div>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>📞 Phone</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("phoneNumber", data.phoneNumber)}</div>
             </div>
 
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>💻 Skills</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("skills", data.skills)}</div>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>💻 Skills</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("skills", data.skills)}</div>
             </div>
 
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>🎓 Education</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("education", data.education)}</div>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>🎓 Education</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("education", data.education)}</div>
             </div>
 
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>📍 Location</span>
-              <div style={styles.itemValue}>{getProfileFieldDisplay("location", data.location)}</div>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>📍 Location</span>
+              <div className={styles.itemValue}>{getProfileFieldDisplay("location", data.location)}</div>
             </div>
 
-            <div style={styles.profileItem}>
-              <span style={styles.itemLabel}>🧑‍💼 Experience</span>
-              <div style={styles.itemValue}>
+            <div className={styles.profileItem}>
+              <span className={styles.itemLabel}>🧑‍💼 Experience</span>
+              <div className={styles.itemValue}>
                 {data.experienceYears !== null && data.experienceYears !== undefined && data.experienceYears !== "" ? (
-                  <span style={styles.filledText}>{data.experienceYears} Year{Number(data.experienceYears) === 1 ? "" : "s"}</span>
+                  <span className={styles.filledText}>{data.experienceYears} Year{Number(data.experienceYears) === 1 ? "" : "s"}</span>
                 ) : (
-                  <span style={styles.waitingText}>Waiting...</span>
+                  <span className={styles.waitingText}>Waiting...</span>
                 )}
               </div>
             </div>
@@ -471,273 +471,3 @@ export default function ChatProfileBuilder({ onComplete, prefillData }) {
   );
 }
 
-const styles = {
-  container: {
-    maxWidth: "1200px",
-    margin: "0 auto",
-    padding: "30px 24px",
-    width: "100%",
-    minHeight: "calc(100vh - 128px)",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center"
-  },
-  twoColumnGrid: {
-    // Replaced by .chat-two-column-grid in index.css
-  },
-  chatPanel: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "var(--border-radius)",
-    boxShadow: "var(--card-shadow)",
-    height: "65vh",
-    minHeight: "500px",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
-  chatHeader: {
-    padding: "16px 20px",
-    borderBottom: "1px solid var(--card-border)",
-    display: "flex",
-    alignItems: "center",
-    gap: "12px",
-    background: "rgba(15, 23, 42, 0.2)"
-  },
-  botIconWrapper: {
-    width: "38px",
-    height: "38px",
-    borderRadius: "50%",
-    background: "rgba(59, 130, 246, 0.15)",
-    color: "var(--accent-color)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "18px"
-  },
-  chatTitle: {
-    fontSize: "15px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  chatStatus: {
-    fontSize: "11px",
-    color: "var(--success-color)",
-    fontWeight: "600",
-    display: "flex",
-    alignItems: "center",
-    gap: "4px"
-  },
-  chatMessageArea: {
-    flex: 1,
-    padding: "20px",
-    overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px"
-  },
-  messageRow: {
-    display: "flex",
-    gap: "10px",
-    alignItems: "flex-end",
-    maxWidth: "85%"
-  },
-  avatarBot: {
-    width: "32px",
-    height: "32px",
-    borderRadius: "50%",
-    background: "var(--card-border)",
-    color: "var(--text-secondary)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "14px",
-    flexShrink: 0
-  },
-  avatarUser: {
-    width: "32px",
-    height: "32px",
-    borderRadius: "50%",
-    background: "rgba(59, 130, 246, 0.2)",
-    color: "#fff",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "14px",
-    flexShrink: 0
-  },
-  messageBubble: {
-    padding: "12px 18px",
-    fontSize: "14px",
-    lineHeight: "1.5",
-    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-    wordBreak: "break-word"
-  },
-  typingBubble: {
-    padding: "12px 18px",
-    background: "var(--card-bg)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "0px 16px 16px 16px",
-    fontSize: "14px",
-    display: "flex",
-    alignItems: "center",
-    gap: "4px"
-  },
-  typingText: {
-    color: "var(--text-secondary)"
-  },
-  dots: {
-    display: "flex",
-    gap: "2px"
-  },
-  dot: {
-    color: "var(--accent-color)",
-    animation: "skeleton-pulse 1s infinite alternate"
-  },
-  inputArea: {
-    padding: "16px 20px",
-    borderTop: "1px solid var(--card-border)",
-    display: "flex",
-    gap: "10px",
-    background: "rgba(15, 23, 42, 0.2)"
-  },
-  backBtn: {
-    width: "46px",
-    height: "46px",
-    borderRadius: "12px",
-    background: "rgba(255, 255, 255, 0.05)",
-    border: "1px solid var(--card-border)",
-    color: "var(--text-color)",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "16px",
-    transition: "background var(--transition-speed)"
-  },
-  inputWrapper: {
-    flex: 1,
-    position: "relative",
-    display: "flex",
-    alignItems: "center"
-  },
-  input: {
-    width: "100%",
-    borderRadius: "12px",
-    border: "1px solid var(--card-border)",
-    background: "rgba(15, 23, 42, 0.3)",
-    color: "var(--text-color)",
-    padding: "0 68px 0 16px",
-    fontSize: "14px",
-    height: "46px",
-    outline: "none"
-  },
-  charCount: {
-    position: "absolute",
-    right: "12px",
-    fontSize: "11px",
-    color: "var(--text-secondary)",
-    pointerEvents: "none",
-    userSelect: "none"
-  },
-  sendBtn: {
-    width: "46px",
-    height: "46px",
-    borderRadius: "12px",
-    border: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "16px",
-    transition: "background var(--transition-speed), transform var(--transition-speed)"
-  },
-  profilePanel: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "var(--border-radius)",
-    boxShadow: "var(--card-shadow)",
-    padding: "24px",
-    height: "65vh",
-    minHeight: "500px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-    overflowY: "auto"
-  },
-  panelHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  panelTitle: {
-    fontSize: "16px",
-    fontWeight: "700",
-    color: "var(--text-color)"
-  },
-  stepIndicator: {
-    fontSize: "12px",
-    color: "var(--text-secondary)",
-    fontWeight: "600"
-  },
-  progressContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "8px",
-    background: "rgba(15, 23, 42, 0.2)",
-    padding: "16px",
-    borderRadius: "12px",
-    border: "1px solid var(--card-border)"
-  },
-  progressBarWrapper: {
-    height: "6px",
-    width: "100%",
-    background: "var(--card-border)",
-    borderRadius: "3px",
-    overflow: "hidden"
-  },
-  progressBar: {
-    height: "100%",
-    background: "linear-gradient(90deg, var(--accent-color) 0%, #a855f7 100%)",
-    borderRadius: "3px"
-  },
-  progressLabel: {
-    fontSize: "11px",
-    fontWeight: "600",
-    color: "var(--text-secondary)",
-    textAlign: "right"
-  },
-  profileItems: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "14px"
-  },
-  profileItem: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "6px",
-    borderBottom: "1px solid rgba(255, 255, 255, 0.04)",
-    paddingBottom: "10px"
-  },
-  itemLabel: {
-    fontSize: "12px",
-    fontWeight: "600",
-    color: "var(--text-secondary)"
-  },
-  itemValue: {
-    fontSize: "14px",
-    fontWeight: "500",
-    lineHeight: "1.4",
-    wordBreak: "break-word",
-    overflowWrap: "anywhere"
-  },
-  waitingText: {
-    color: "var(--text-secondary)",
-    opacity: 0.5,
-    fontStyle: "italic"
-  },
-  filledText: {
-    color: "var(--text-color)"
-  }
-};

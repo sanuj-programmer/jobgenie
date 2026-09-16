@@ -1,0 +1,303 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 24px;
+  width: 100%;
+  min-height: calc(100vh - 128px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.twoColumnGrid {
+}
+
+.chatPanel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  height: 65vh;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chatHeader {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--card-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 23, 42, 0.2);
+}
+
+.botIconWrapper {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.chatTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.chatStatus {
+  font-size: 11px;
+  color: var(--success-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chatMessageArea {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.messageRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  max-width: 85%;
+}
+
+.avatarBot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--card-border);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.avatarUser {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.messageBubble {
+  padding: 12px 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  word-break: break-word;
+}
+
+.typingBubble {
+  padding: 12px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 0px 16px 16px 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typingText {
+  color: var(--text-secondary);
+}
+
+.dots {
+  display: flex;
+  gap: 2px;
+}
+
+.dot {
+  color: var(--accent-color);
+  animation: skeleton-pulse 1s infinite alternate;
+}
+
+.inputArea {
+  padding: 16px 20px;
+  border-top: 1px solid var(--card-border);
+  display: flex;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.2);
+}
+
+.backBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  color: var(--text-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background var(--transition-speed);
+}
+
+.inputWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+  background: rgba(15, 23, 42, 0.3);
+  color: var(--text-color);
+  padding: 0 68px 0 16px;
+  font-size: 14px;
+  height: 46px;
+  outline: none;
+}
+
+.charCount {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  pointer-events: none;
+  user-select: none;
+}
+
+.sendBtn {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background var(--transition-speed), transform var(--transition-speed);
+}
+
+.profilePanel {
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  padding: 24px;
+  height: 65vh;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panelTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.stepIndicator {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--card-border);
+}
+
+.progressBarWrapper {
+  height: 6px;
+  width: 100%;
+  background: var(--card-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-color) 0%, #a855f7 100%);
+  border-radius: 3px;
+}
+
+.progressLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.profileItems {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profileItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 10px;
+}
+
+.itemLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.itemValue {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.waitingText {
+  color: var(--text-secondary);
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.filledText {
+  color: var(--text-color);
+}
+

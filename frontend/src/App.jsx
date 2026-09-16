@@ -11,6 +11,8 @@ import Register from "./components/Register";
 import ToastContainer, { toast } from "./components/ToastContainer";
 import { FaTimes, FaComments, FaSync, FaSpinner } from "react-icons/fa";
 
+import styles from './styles/App.module.css';
+
 export default function App() {
   const [user, setUser] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
@@ -241,10 +243,10 @@ export default function App() {
   // Loading indicator for startup session check
   if (checkingSession) {
     return (
-      <div style={styles.appContainer}>
+      <div className={styles.appContainer}>
         <Navbar user={null} onLogout={null} />
-        <main style={{ ...styles.mainContent, ...styles.centerContainer }}>
-          <FaSpinner style={styles.spinner} />
+        <main className={`${styles.mainContent} ${styles.centerContainer}`}>
+          <FaSpinner className={styles.spinner} />
           <p style={{ marginTop: "12px", color: "var(--text-secondary)" }}>Verifying session...</p>
         </main>
         <Footer />
@@ -253,10 +255,10 @@ export default function App() {
   }
 
   return (
-    <div style={styles.appContainer}>
+    <div className={styles.appContainer}>
       <Navbar user={user} onLogout={handleLogout} onBrandClick={handleRestart} />
 
-      <main style={styles.mainContent}>
+      <main className={styles.mainContent}>
         {/* Render unauthenticated views if user is not logged in */}
         {!user ? (
           <>
@@ -296,23 +298,23 @@ export default function App() {
             )}
 
             {screen === "loading" && apiError && (
-              <div style={styles.errorScreen}>
-                <div style={styles.errorCard}>
-                  <span style={styles.errorIcon}>🚨</span>
-                  <h2 style={styles.errorTitle}>
+              <div className={styles.errorScreen}>
+                <div className={styles.errorCard}>
+                  <span className={styles.errorIcon}>🚨</span>
+                  <h2 className={styles.errorTitle}>
                     {apiError === "timeout" ? "Request Timeout" : "Network Connection Failed"}
                   </h2>
-                  <p style={styles.errorText}>
+                  <p className={styles.errorText}>
                     {apiError === "timeout"
                       ? "The matching service is taking longer than 10 seconds to respond. You can retry the matching algorithm or return to the landing page."
                       : "We encountered a network error while computing your match dashboard. Please verify that your backend API server is online on port 4000."}
                   </p>
                   
-                  <div style={styles.errorBtnRow}>
-                    <button onClick={() => executeAnalysis(pendingProfile)} style={styles.retryBtn}>
+                  <div className={styles.errorBtnRow}>
+                    <button onClick={() => executeAnalysis(pendingProfile)} className={styles.retryBtn}>
                       <FaSync /> Retry Calculation
                     </button>
-                    <button onClick={handleRestart} style={styles.cancelBtn}>
+                    <button onClick={handleRestart} className={styles.cancelBtn}>
                       Cancel & Exit
                     </button>
                   </div>
@@ -339,27 +341,27 @@ export default function App() {
 
       {/* View Conversation Log Modal */}
       {isConversationOpen && (
-        <div style={styles.modalBackdrop} onClick={() => setIsConversationOpen(false)}>
-          <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-            <div style={styles.modalHeader}>
-              <h3 style={styles.modalTitle}>
+        <div className={styles.modalBackdrop} onClick={() => setIsConversationOpen(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>
                 <FaComments style={{ color: "var(--accent-color)", marginRight: "8px" }} />
                 Analysis Conversation Log
               </h3>
-              <button onClick={() => setIsConversationOpen(false)} style={styles.modalCloseBtn}>
+              <button onClick={() => setIsConversationOpen(false)} className={styles.modalCloseBtn}>
                 <FaTimes />
               </button>
             </div>
             
-            <div style={styles.modalBody} className="chat-scrollbar">
+            <div className={`${styles.modalBody} chat-scrollbar`}>
               {conversation.map((c, i) => (
-                <div key={i} style={styles.modalConvPair}>
-                  <div style={styles.modalBotBubble}>
-                    <span style={styles.speakerLabel}>🤖 JobGenie Agent</span>
+                <div key={i} className={styles.modalConvPair}>
+                  <div className={styles.modalBotBubble}>
+                    <span className={styles.speakerLabel}>🤖 JobGenie Agent</span>
                     <p>{c.q}</p>
                   </div>
-                  <div style={styles.modalUserBubble}>
-                    <span style={styles.speakerLabel}>👤 {profile?.name || "You"}</span>
+                  <div className={styles.modalUserBubble}>
+                    <span className={styles.speakerLabel}>👤 {profile?.name || "You"}</span>
                     <p>{c.a}</p>
                   </div>
                 </div>
@@ -372,184 +374,3 @@ export default function App() {
   );
 }
 
-const styles = {
-  appContainer: {
-    display: "flex",
-    flexDirection: "column",
-    minHeight: "100vh",
-    width: "100%"
-  },
-  mainContent: {
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    position: "relative"
-  },
-  centerContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: "calc(100vh - 128px)"
-  },
-  spinner: {
-    fontSize: "36px",
-    color: "var(--accent-color)",
-    animation: "skeleton-pulse 1.2s infinite linear"
-  },
-  errorScreen: {
-    minHeight: "calc(100vh - 128px)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "24px"
-  },
-  errorCard: {
-    background: "var(--card-bg)",
-    backdropFilter: "blur(12px)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    width: "100%",
-    maxWidth: "500px",
-    padding: "36px 30px",
-    textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "18px"
-  },
-  errorIcon: {
-    fontSize: "40px"
-  },
-  errorTitle: {
-    fontSize: "20px",
-    fontWeight: "800",
-    color: "var(--text-color)"
-  },
-  errorText: {
-    fontSize: "14px",
-    color: "var(--text-secondary)",
-    lineHeight: "1.6",
-    textAlign: "center"
-  },
-  errorBtnRow: {
-    display: "flex",
-    gap: "12px",
-    marginTop: "10px",
-    width: "100%"
-  },
-  retryBtn: {
-    flex: 1,
-    background: "var(--accent-color)",
-    border: "none",
-    borderRadius: "10px",
-    color: "#fff",
-    height: "44px",
-    fontSize: "14px",
-    fontWeight: "600",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "8px"
-  },
-  cancelBtn: {
-    flex: 1,
-    background: "rgba(255, 255, 255, 0.05)",
-    border: "1px solid var(--card-border)",
-    borderRadius: "10px",
-    color: "var(--text-color)",
-    height: "44px",
-    fontSize: "14px",
-    fontWeight: "600",
-    cursor: "pointer"
-  },
-  modalBackdrop: {
-    position: "fixed",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    background: "rgba(0, 0, 0, 0.6)",
-    backdropFilter: "blur(4px)",
-    zIndex: 9999,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "24px"
-  },
-  modalContent: {
-    background: "var(--card-bg)",
-    border: "1px solid var(--card-border)",
-    boxShadow: "var(--card-shadow)",
-    borderRadius: "var(--border-radius)",
-    width: "100%",
-    maxWidth: "600px",
-    maxHeight: "80vh",
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden"
-  },
-  modalHeader: {
-    padding: "18px 24px",
-    borderBottom: "1px solid var(--card-border)",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  modalTitle: {
-    fontSize: "16px",
-    fontWeight: "750",
-    color: "var(--text-color)",
-    display: "flex",
-    alignItems: "center"
-  },
-  modalCloseBtn: {
-    background: "none",
-    border: "none",
-    color: "var(--text-secondary)",
-    fontSize: "18px",
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center"
-  },
-  modalBody: {
-    padding: "24px",
-    overflowY: "auto",
-    display: "flex",
-    flexDirection: "column",
-    gap: "24px"
-  },
-  modalConvPair: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px"
-  },
-  modalBotBubble: {
-    background: "var(--bg-color)",
-    border: "1px solid var(--card-border)",
-    padding: "12px 16px",
-    borderRadius: "0px 14px 14px 14px",
-    alignSelf: "flex-start",
-    maxWidth: "85%",
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px"
-  },
-  modalUserBubble: {
-    background: "var(--accent-glow)",
-    border: "1px solid rgba(59, 130, 246, 0.2)",
-    padding: "12px 16px",
-    borderRadius: "14px 0px 14px 14px",
-    alignSelf: "flex-end",
-    maxWidth: "85%",
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px"
-  },
-  speakerLabel: {
-    fontSize: "10px",
-    fontWeight: "700",
-    color: "var(--text-secondary)",
-    textTransform: "uppercase"
-  }
-};
