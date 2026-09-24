@@ -31,6 +31,7 @@ export default function App() {
   // Conversational log state
   const [conversation, setConversation] = useState([]);
   const [isConversationOpen, setIsConversationOpen] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Check user session on app start
   useEffect(() => {
@@ -217,7 +218,12 @@ export default function App() {
     toast("Restored session matching dashboard!", "success");
   };
 
-  const handleLogout = async () => {
+  const initiateLogout = () => {
+    setShowLogoutConfirm(true);
+  };
+
+  const confirmLogout = async () => {
+    setShowLogoutConfirm(false);
     try {
       await API.post("/auth/logout");
       toast("Logged out successfully", "success");
@@ -256,7 +262,7 @@ export default function App() {
 
   return (
     <div className={styles.appContainer}>
-      <Navbar user={user} onLogout={handleLogout} onBrandClick={handleRestart} />
+      <Navbar user={user} onLogout={initiateLogout} onBrandClick={handleRestart} />
 
       <main className={styles.mainContent}>
         {/* Render unauthenticated views if user is not logged in */}
@@ -366,6 +372,33 @@ export default function App() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutConfirm && (
+        <div className={styles.modalBackdrop} onClick={() => setShowLogoutConfirm(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <h3 className={styles.modalTitle}>
+                Confirm Logout
+              </h3>
+              <button onClick={() => setShowLogoutConfirm(false)} className={styles.modalCloseBtn}>
+                <FaTimes />
+              </button>
+            </div>
+            <div className={styles.modalBody} style={{ gap: "16px" }}>
+              <p style={{ color: "var(--text-color)", textAlign: "center", fontSize: "16px" }}>Are you sure you want to log out?</p>
+              <div className={styles.errorBtnRow} style={{ marginTop: "12px" }}>
+                <button onClick={confirmLogout} className={styles.retryBtn} style={{ background: "var(--danger-color)" }}>
+                  Yes, Logout
+                </button>
+                <button onClick={() => setShowLogoutConfirm(false)} className={styles.cancelBtn}>
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
