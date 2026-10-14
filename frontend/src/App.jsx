@@ -8,6 +8,7 @@ import AnalysisLoading from "./components/AnalysisLoading";
 import ResultsDashboard from "./components/ResultsDashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ProfileModal from "./components/ProfileModal";
 import ToastContainer, { toast } from "./components/ToastContainer";
 import { FaTimes, FaComments, FaSync, FaSpinner } from "react-icons/fa";
 
@@ -17,6 +18,10 @@ export default function App() {
   const [user, setUser] = useState(null);
   const [checkingSession, setCheckingSession] = useState(true);
   const [authScreen, setAuthScreen] = useState("login"); // 'login' | 'register'
+  
+  // Profile Modal state
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [profileInitialTab, setProfileInitialTab] = useState("general");
   
   const [screen, setScreen] = useState("landing"); // 'landing' | 'chat' | 'loading' | 'results'
   const [profile, setProfile] = useState(null);
@@ -260,9 +265,23 @@ export default function App() {
     );
   }
 
+  const handleOpenProfileTab = (tab = "general") => {
+    setProfileInitialTab(tab);
+    setIsProfileModalOpen(true);
+  };
+
+  const handleUserUpdated = (updatedUser) => {
+    setUser(updatedUser);
+  };
+
   return (
     <div className={styles.appContainer}>
-      <Navbar user={user} onLogout={initiateLogout} onBrandClick={handleRestart} />
+      <Navbar 
+        user={user} 
+        onLogout={initiateLogout} 
+        onBrandClick={handleRestart} 
+        onOpenProfileTab={handleOpenProfileTab}
+      />
 
       <main className={styles.mainContent}>
         {/* Render unauthenticated views if user is not logged in */}
@@ -403,6 +422,15 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* LinkedIn-Style Edit Profile Modal */}
+      <ProfileModal 
+        isOpen={isProfileModalOpen} 
+        onClose={() => setIsProfileModalOpen(false)} 
+        initialTab={profileInitialTab} 
+        currentUser={user} 
+        onUserUpdated={handleUserUpdated} 
+      />
     </div>
   );
 }
