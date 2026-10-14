@@ -50,6 +50,9 @@ RAPIDAPI_HOST=jsearch.p.rapidapi.com
 JWT_SECRET=your_cryptographic_jwt_token_signature_key
 CLIENT_URL=http://localhost:5173
 NODE_ENV=development
+CLOUDINARY_CLOUD_NAME=Your_Cloudinary_Cloud_Name
+CLOUDINARY_API_KEY=Your_API_KEY
+CLOUDINARY_API_SECRET=Your_API_Secret
 ---
 
 ```
